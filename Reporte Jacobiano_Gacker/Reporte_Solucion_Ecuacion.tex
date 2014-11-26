@@ -1,0 +1,696 @@
+%% This is file `elsarticle-template-1-num.tex',
+%%
+%% Copyright 2009 Elsevier Ltd
+%%
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for Elsevier's document class `elsarticle'
+%% with numbered style bibliographic references
+%%
+%% $Id: elsarticle-template-1-num.tex 149 2009-10-08 05:01:15Z rishi $
+%% $URL: http://lenova.river-valley.com/svn/elsbst/trunk/elsarticle-template-1-num.tex $
+%%
+%\documentclass[final, 2p, times]{elsarticle}
+%\documentclass{article}
+%\documentclass[preprint,authoryear,5p,twocolumn]{elsarticle}
+\documentclass {article}
+\usepackage[a4paper]{geometry}
+\setlength{\topmargin}{0mm}
+\setlength{\headheight}{0.00cm}
+\setlength{\footskip}{15pt}
+\usepackage{framed}
+
+%\usepackage[utf8]{inputenc}
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage[]{mcode}%Para usar código de latex
+\usepackage{amssymb, amsmath}
+\usepackage{cancel}
+\usepackage{amsthm}
+\usepackage[spanish,activeacute]{babel}
+%\renewcommand\tablename{Tabla}
+%\newtheorem{proof}{Prueba}
+\newtheorem{proposition}{Proposición}
+\newtheorem{theorem}{Teorema}
+\newtheorem{corollary}{Corolario}
+\marginparwidth = 25pt
+%%\usepackage{hyperref} %Solo funciona al lanzarlo como pdf no como dvi, ojo!!!!!!
+%% The amsthm package provides extended theorem environments
+%% \usepackage{amsthm}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers after \end{frontmatter}.
+%% \usepackage{lineno}
+
+%% natbib.sty is loaded by default. However, natbib options can be
+%% provided with \biboptions{...} command. Following options are
+%% valid:
+
+%%   round  -  round parentheses are used (default)
+%%   square -  square brackets are used   [option]
+%%   curly  -  curly braces are used      {option}
+%%   angle  -  angle brackets are used    <option>
+%%   semicolon  -  multiple citations separated by semi-colon
+%%   colon  - same as semicolon, an earlier confusion
+%%   comma  -  separated by comma
+%%   numbers-  selects numerical citations
+%%   super  -  numerical citations as superscripts
+%%   sort   -  sorts multiple citations according to order in ref. list
+%%   sort&compress   -  like sort, but also compresses numerical citations
+%%   compress - compresses without sorting
+%%
+%% \biboptions{comma,round}
+
+% \biboptions{}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for the associated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for the associated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for the associated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%%
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+\title{Método de Diseño-Modelo Alternativo}
+
+%% use optional labels to link authors explicitly to addresses:
+%% \author[label1,label2]{<author name>}
+%% \address[label1]{<address>}
+%% \address[label2]{<address>}
+
+\author{Gina Torres Guerrero.}
+\begin{document}
+\maketitle
+%\tableofcontents
+%\address{gina.torres@upc.edu}
+
+%\begin{abstract}
+%%% Text of abstract
+%En este trabajo  se presenta un resumen de las clases del profesor Mariano Marzo sobre el origen de los hidrocarburos (HC).
+%\end{abstract}
+
+%\begin{keyword}
+%%% keywords here, in the form: keyword \sep keyword
+%
+%%% MSC codes here, in the form: \MSC code \sep code
+%%% or \MSC[2008] code \sep code (2000 is the default)
+%Crudo, hidrocarburos, roca madre.
+%\end{keyword}
+
+%\end{frontmatter}
+
+%%
+%% Start line numbering here if you want
+%%
+% \linenumbers
+
+%% main text
+\newpage
+\section{Difeomorfismo}\label{seccion_1}
+El modelo alternativo en lazo cerrado que también representa la dinámica de un sistema LTI en dominio discreto con retardo se presenta a través de la siguiente ecuación:
+\begin{equation}\label{eq:suposicion}
+    \boxed{x(kh+h)=\hat{\Phi}_{cl}(h,\tau) x(kh)}
+\end{equation}
+con  $\hat{\Phi}_{cl} \in \mathbb{C}^{n \times n}$ no singular, \cite{Torres2013}, \cite{Torres2013Thesis}.\\ 
+
+Como se estudió en \cite{Torres2013} la matriz de lazo cerrado del modelo alternativo (\ref{eq:suposicion}), contiene $n$ de los $n+1$ valores propios del sistema del modelo ampliado, \cite{astrom1999computer}, y además los polos son complejos no conjugados. La misma matriz de lazo cerrado $\hat{\Phi}_{cl}$ está representada por elementos en el dominio complejo $\mathbb{C}$, lo cual no es usual en las representaciones de sistemas de control en dominio discreto. Dado que el modelo alternativo proviene de la proyección del modelo ampliado, sabemos que la parte compleja de los elementos de la matriz de lazo cerrado está relacionada implícitamente con el retardo producido, por lo cual este reporte presenta una aproximación de cómo el retardo se relaciona con los polos del sistema y de esta manera llegar a plantear un método de diseño en el que además de elegir los polos del sistema  también sea posible seleccionar el retardo deseado, lo cual es novedoso, pues esto significa que se utilizaría tal parámetro con la idea de intentar mejorar el comportamiento del sistema de control, o tan solo como nuevo elemento de diseño para sistemas de control en red con retardos.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\linewidth]{diagrama.jpg}
+  \caption{Diagrama Modelo Alternativo-Modelo Ampliado}
+  \label{fig:diagrama}
+\end{figure}
+
+De acuerdo al diagrama de la Figura \ref{fig:diagrama}, partimos de un sistema discreto sin retardo, representado por las matrices $\Phi(h) \in \mathbb{R}^{n \times n}$, $\Gamma(h)\in \mathbb{R}^{n \times 1}$, dado un  retardo ocasionado por ejemplo por el cómputo y transmisión de la ley de control, debemos ampliar el sistema con una variable más la cual representará la ley de control anterior,  \cite{astrom1999computer}, con el fin de representar tal retardo.
+\begin{eqnarray}\label{eq:sistema_dicreto_ampliado}
+\begin{pmatrix} x(kh+h) \\ z(kh+h)\end{pmatrix}&=&\underbrace{\begin{pmatrix} \Phi(h) & \Gamma_1(h,\tau)\\0 & 0\end{pmatrix}}_{\Phi_{\Delta}}
+\begin{pmatrix} x(kh) \\ z(kh)
+\end{pmatrix}+\underbrace{\begin{pmatrix} \Gamma_0(h,\tau) \\ I
+\end{pmatrix}}_{\Gamma_{\Delta}}u(kh)
+\end{eqnarray} 
+ 
+ Con el fin de controlar tal sistema se debe considerar una ley de control, la cual contiene además de los estados originales la nueva variable ocasionada por el retardo; la ley de control con ganancia $L_{e}(h,\tau) \in \mathbb{R}^{1 \times (n+1)}$ a utilizar se puede diseñar a través de cualquier método de control. Dando lugar a un sistema discreto en lazo cerrado como el siguiente:
+\begin{equation}\label{eq:sistema_dicreto_ampliado_cloop}
+\boxed{\begin{pmatrix} x(kh+h) \\ z(kh+h)
+\end{pmatrix}= \Phi_{cl}^{\Delta}(h,\tau)\begin{pmatrix} x(kh) \\ z(kh)
+\end{pmatrix}}
+\end{equation} 
+
+ Con matriz de lazo cerrado $\Phi_{cl}^{\Delta}(h,\tau)$. Ésta metodología es la más utilizada para el estudio y análisis de sistemas discretos de control en red con retardos.
+  
+Para analizar el origen del modelo alternativo y como se vió en \cite{Torres2013}, la ley de control utilizada para realimentar un sistema discreto con retardo (menor que el periodo de muestreo) representado por:
+\begin{eqnarray}\label{e:sistema1_discreto}
+    x(kh+h)=\Phi(h)x(kh)+\Gamma_0(h,\tau)u(kh)\Gamma_1(h,\tau)u(kh-h)%\\
+%\label{e:sistema2_discreto}
+%    y(kh)&=&Cx(kh)
+\end{eqnarray}
+ 
+supone solo los estados originales del sistema, la cual es: 
+\begin{eqnarray}\label{e:smallcontrol}
+u(kh)=L(h) x(kh) \quad \forall t\in[kh,kh+h)
+\end{eqnarray}
+
+Lo cual  partiendo del modelo ampliado supone que la ley de control que nos llevaría al mismo modelo tiene una ganancia de la forma:
+\begin{equation}\label{eq:cg}
+L_e(h,\tau)=\begin{pmatrix} L_{x}(h) & 0_{1 \times 1} \end{pmatrix} 
+\end{equation}
+
+Esta ley de control da lugar a encontrar el nuevo modelo, como el mostrado en (\ref{eq:suposicion}), resultando ser una proyección del modelo ampliado, tal proyección también fue analizada y encontrada en \cite{Torres2013} y \cite{Torres2013Thesis}.
+
+\begin{equation}\label{e:sol}
+\boxed{\hat{\Phi}_{cl}=S\Phi_{cl}^{\Delta}M_{\Delta}S^{T}(SM_{\Delta}S^{T})^{-1}}
+\end{equation} 
+
+Dado que sabemos como llegar del modelo ampliado al modelo alternativo, como se ve en la Figura \ref{fig:diagrama}.. Ahora la pregunta que debemos responder es: ¿Cómo podemos pasar del modelo alternativo al modelo ampliado?,(ver Figura \ref{fig:mc_to_ma}.).
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.7\linewidth]{mc_to_ma.jpg}
+  \caption{Del Modelo Alternativo al Modelo Ampliado}
+  \label{fig:mc_to_ma}
+\end{figure}
+
+Ésta pregunta nos lleva a plantearnos de nuevo: De qué forma se relaciona el retardo $\tau$ con la parte compleja de los valores propios del modelo ampliado?. Su respuesta nos permitirìa determinar si es posible usar tal elemento como parámetro de diseño. Es decir que en últimas se desea saber la dependencia de $\tau$ respecto de los polos.
+
+\begin{equation}\label{eq:tpolos}
+\tau=f(polos)
+\end{equation} 
+
+\textit{\textbf{Condiciones de existencia}}
+Ya que para llegar al modelo alternativo hemos supuesto desde el modelo ampliado que la componente de la ganancia para la ley de control anterior es cero, (\ref{eq:cg_di}), se necesita establecer ciertas condiciones de existencia, para saber que para todo:
+ 
+\begin{equation}\nonumber
+L_e(h,\tau)=\begin{pmatrix} L_{x}(h) & 0_{1 \times 1} \end{pmatrix} 
+\end{equation}
+
+existe realmente una solución que nos permita llegar a obtener el retraso $\tau$. Para ello se analizan los difeomorfismos entre los componentes de tal matriz de ganancias dada por (\ref{eq:cg}) y el retraso $\tau$:
+
+\begin{equation}
+f:\begin{pmatrix}
+L_e(h,\tau)
+\end{pmatrix}\rightarrow \tau
+\end{equation}
+
+\begin{framed}Por definiciòn un difeomorfismo: Sean A y B conjuntos abiertos de $\mathbb{R}^{N}$ y f una aplicación de A en B. Se dice que una aplicación $f : A \rightarrow B$ es un difeomorfismo, aplicación regular o cambio de variable si f es biyectiva y tanto f como su inversa $f^{-1}$
+son diferenciables. Entonces $J_{f}(x) \neq 0$ para todo $x\in A$.
+\end{framed}
+
+Para analizar los difeomorfismos entre los elementos de la matriz de ganancias representada por (\ref{eq:cg}) y el retraso $\tau$, lo que  revisará es si la matriz jacobiana de la matriz tiene determinante igual a $0$.
+
+\begin{equation}
+J_{f}=\begin{pmatrix}
+\frac{\partial y_1}{\partial x_1} & \cdots &\frac{\partial y_1}{\partial x_n}\\
+\vdots&\ddots&\vdots\\
+\frac{\partial y_m}{\partial x_1}&\cdots&\frac{\partial y_m}{\partial x_n}
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+det J_{f}=0
+\end{equation}
+
+Lo que nos da como resultado es: si dado una ley de control como (\ref{eq:cg_di}), buscamos para que valores de $ L_{e}(h,\tau)$ cuyos elementos son $[l_1,l_2,\hdots,l_n, l_{n+1}]$ existe solución para el retraso $\tau$ cuando el elemento $l_{n+1}=0$.\\
+
+Por otro lado la función $f$ para el análisis del difeomorfismo viene dada mediante el diseño de una ley de control por realimentaciòn de estados diseñada por algún método, el cual puede ser el método de la fórmula de Ackermann que veremos a continuación.
+
+\section{Fórmula de Ackermann modificada}\label{se:ackermann}
+Para cualquier $n$ que representa el número de estados del sistema ampliado, ecuación (\ref{eq:sistema_dicreto_ampliado}), en nuestro caso en particular, la fórmula de Ackermann establece que la matriz de ganancia de realimentación de estados está dada por:
+\begin{equation}\label{eq:ackermann}
+\boxed{L_{e}(h,\tau)=\begin{pmatrix} 0 & 0 & \hdots & 1\end{pmatrix}C_{o}^{-1}\phi({\Phi_{\Delta}})}
+\end{equation}
+donde la matrix $Co$ es la matriz de controlabilidad del sistema, la cual es:
+
+\begin{equation}\label{eq:controlability_matrix}
+C_{o}=\begin{pmatrix}
+\Phi_{\Delta} & \Phi_{\Delta}\Gamma_{\Delta} &  \Phi_{\Delta}^2\Gamma_{\Delta} & \hdots \Phi_{\Delta}^{n-1}\Gamma_{\Delta}
+\end{pmatrix}
+\end{equation}
+
+y $\phi({\Phi_\Delta})$ es el polinomio característico deseado evaluado en $\Phi_\Delta$:
+
+\begin{equation}
+\phi(\Phi_{\Delta})=\Phi_{\Delta}^{n}+\alpha_1\Phi_{\Delta}^{n-1}+\hdots+\alpha_{n-1}\Phi_{\Delta}+\alpha_{n}I
+\end{equation}
+
+donde $\alpha_n$ son los coeficientes del polinomio característico deseado, es decir el polinomio característico de los polos deseados.\\
+
+Una forma generalizada de la Fórmula de Ackermann es la siguiente fórmula en la que se determina la inversa de la Matriz de Controlabilidad definida en (\ref{eq:controlability_matrix}), a través del teorema de \textit{Cayley-Hamilton}, en términos de su determinante, sus trazas y potencias:
+
+\begin{equation}\label{eq:ackermann_general}
+\boxed{L_{e}(h,\tau)=\begin{pmatrix} 0 & 0 & \hdots & 1\end{pmatrix}\bigg(\frac{1}{det(C_o)}\sum\limits_{s=0}^{n-1}C_{o}^s\sum\limits_{k1,k2,k_{n-1}}\prod\limits_{l=1}^{n-1} \frac{(-1)^{kl+1}}{l^{kl}kl!}tr(C_{o}^l)^{kl}\bigg)\phi({\Phi_{\Delta}})}
+\end{equation}
+donde $n$ es la dimensión de la matriz de controlabilidad $C_{o}$, y la suma se toma desde s y todos los conjuntos de todos los $kl\geq0$ que satisfacen la ecuación lineal diofántica.
+\begin{equation}\label{eq:para_ackermann}
+s+\sum_{l=1}^{n-1}lk_{l} = n - 1.
+\end{equation} 
+
+Al analizar la relación entre los polos deseados y 
+la matriz de ganancias de realimentación $L_e(h,\tau)$ del sistema ampliado (\ref{eq:sistema_dicreto_ampliado}), teniendo en cuenta que para nuestro nuevo modelo la componente $n+1$ debido al retardo de la ganancia es 0, $l_{n+1}=0$, ecuación (\ref{eq:cg}); podremos obtener también una relación entre el retardo del sistema, $\tau$, y los polos deseados.
+
+Entonces de la ecuación (\ref{eq:ackermann}), teniendo en cuenta (\ref{eq:cg}) tenemos que:
+\begin{equation}\label{eq:ackermann1}
+\begin{pmatrix} l_1& l_2& l_n & 0
+\end{pmatrix}=\begin{pmatrix} 0 & 0 & \hdots & 1\end{pmatrix}C_{o}^{-1}\phi({\Phi_{\Delta}})
+\end{equation}
+
+y para obtener la componente $n+1$ de la matriz de ganancias $L_e(h,\tau)$ definida en (\ref{eq:ackermann1}) que dará lugar a encontrar una relación entre los polos y el retardo del sistema $\tau$, debemos multiplicar por una vector fila para extraer tal componente deseada: 
+
+\begin{equation}\label{eq:0_ackermann}
+\boxed{0=
+\begin{pmatrix} 0 & 0 & \hdots & 1\end{pmatrix}C_{o}^{-1}\phi({\Phi_{\Delta}})\begin{pmatrix}
+0\\0\\ \vdots \\ 1
+\end{pmatrix}}
+\end{equation}
+
+Al resolver (\ref{eq:0_ackermann}) encontraremos finalmente en función de los polos deseados $\tau(polos)$
+
+A continuación se verá a través de un ejemplo los contenidos aquí expuestos. 
+
+\subsection{Ejemplo}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\linewidth]{di_circuit.png}
+  \caption{Circuito del Doble Integrador}
+  \label{fig:di_circuit}
+\end{figure}
+
+La ecuación de la dinámica continua del doble integrador, ilustrado en la Figura \ref{fig:di_circuit}., está descrita por:
+
+\begin{eqnarray}\label{eq:di_real}
+\begin{pmatrix} \dot{x}_1(t) \\
+\dot{x}_2(t)
+\end{pmatrix}=\begin{pmatrix} 0 & 1 \\0 & 0\end{pmatrix}\begin{pmatrix} x_1(t) \\x_2(t)\end{pmatrix}+
+ \begin{pmatrix} 0 \\1\end{pmatrix}u(t-\tau)
+\end{eqnarray}
+
+El sistema en tiempo discreto de acuerdo a la ecuación (\ref{eq:sistema_dicreto_ampliado}), se define en términos del retraso, $\tau$, como:
+ 
+\begin{eqnarray}\label{eq:di_real_discreto}
+ \begin{pmatrix} {x}_1(k+1) \\
+{x}_2(k+1)
+\end{pmatrix}\begin{pmatrix}
+1 & 1 & \frac{\tau^{2}}{2}-\tau(\tau - 1)\\
+0 & 1 &                     \tau\\
+0 & 0 &                   0
+\end{pmatrix}
+\begin{pmatrix} {x}_1(k+1) \\
+{x}_2(k+1)
+\end{pmatrix}+
+ \end{eqnarray}
+\begin{enumerate}
+\item {\textbf{Difeomorfismo: Existencia de solución para el retraso, $\tau$, cuando $L_e(h,\tau)=\begin{pmatrix} L_{x}(h) & 0_{1 \times 1} \end{pmatrix}$}}\\
+En este caso se probará si existe solución para cualquier $\tau$, cuando el controlador con el cual se pretende realimentar el sistema, está definido por la ecuación (\ref{eq:cg}) mediante el cual llegamos al nuevo modelo dado por la ecuación (\ref{eq:suposicion}).\\
+
+Para ello entonces se verificará el difeomorfismo entre los elementos de la matriz de ganancias (\ref{eq:cg}) y el retraso, $\tau$.\\
+
+Entonces, primero se obtiene el sistema del doble integrador en lazo cerrado del sistema dado un controlador que en este caso será:
+\begin{equation}\label{eq:di_cg}
+L_{e}(h,\tau)=\begin{pmatrix}
+l_1 & l_2 & 0
+\end{pmatrix}
+\end{equation}
+
+y definido por (\ref{eq:sistema_dicreto_ampliado_cloop}), cuya matriz de lazo cerrado en términos del retardo $\tau$ es:
+
+\begin{equation}\label{eq:cl_matrix}
+\Phi_{cl}^{\Delta}=\begin{pmatrix}
+(l_{1}*\frac{(\tau - 1)^2)}{2} + 1& (l_{2}*\frac{(\tau - 1)^2)}{2} + 1& \frac{\tau^2}{2} - \tau*(\tau - 1)
+\\-l_{1}*(\tau - 1)&       1 - l_{2}*(\tau - 1)&                     \tau\\
+l_{1}&                     l_{2}&                     0
+\end{pmatrix}
+\end{equation}
+
+El polinomio característico del sistema en lazo cerrado definido por la matriz de la ecuación (\ref{eq:cl_matrix}) es:
+\begin{equation}
+s^3+(l_{1}\tau - l_{2} - 0.5l_{1} + l_{2}\tau - 0.5l_{1}\tau^2 - 2.0)s^{2}+(l_{2} - 0.5l_{1} - 1l_{1}\tau - 2l_{2}\tau + l_{1}\tau^2 + 1)s+(l_{2}\tau-0.5l_{1}\tau^2)
+\end{equation}
+
+Ya que se requiere saber si dada una ganancia $L_e(h,\tau)$ de la forma mostrada en (\ref{eq:di_cg}) existe solución y puedo encontrar un retraso $\tau$ teniendo en cuenta que $L_e(h,\tau)$ tiene tal forma característica. Lo que es lo mismo encontrar un difeomorfismo entre la ganancia $L_e(h,\tau)$ y el retraso $\tau$ del sistema. Se debe analizar en que punto la matriz jacobiana tiene determinante igual a 0. Entonces, se calcula la matriz Jacobiana. 
+\begin{equation}\label{eq:jacobian_di}
+J=\begin{pmatrix}
+- 0.5\tau^{2} + \tau - 0.5 &     \tau - 1& l_{1} + l_{2} - 1l_{1}\tau\\
+\tau^{2} - \tau - 0.5& 1.0 - 2\tau& 2l_{1}\tau - 2.0l_{2} - 1.0l_{1}\\
+-0.5\tau^2&\tau&l_{2} - l_{1}\tau
+\end{pmatrix}
+\end{equation}
+El determinante de la matriz Jacobiana (\ref{eq:jacobian_di})  dá como resultado:
+
+\begin{equation}
+det J_{f}=l_{2}
+\end{equation}
+
+Es decir que si $L_e{h,\tau}$ tiene la forma:
+
+\begin{equation}\nonumber
+L_e(h,\tau)=\begin{pmatrix} l_{1}& 0 & 0\end{pmatrix} 
+\end{equation}
+
+con $l_{2}=0$, no hay solución para el retraso $\tau$.
+
+\item {\textbf{Fórmula de Ackermann Modificada: Solución para el retardo $\tau$ dado  $L_{e}(h,\tau)$}}.
+
+Ya que se conoce que es posible encontrar un retraso tal que el sistema sea realimentado a través de una matriz de ganancias de la forma expuesta en la ecuación 
+(\ref{eq:cg}), se encontrará tal retraso, $\tau$, a través de la fórmula de ackermann modificada, expuesto en \ref{se:ackermann}.
+
+Entonces, supongamos ahora el sistema del doble integrador definido por el espacio de estados de la ecuación \ref{eq:di_real}:   
+\begin{eqnarray}\nonumber
+\begin{pmatrix} \dot{x}_1(t) \\
+\dot{x}_2(t)
+\end{pmatrix}=\begin{pmatrix} 0 & 1 \\0 & 0\end{pmatrix}\begin{pmatrix} x_1(t) \\x_2(t)\end{pmatrix}+
+ \begin{pmatrix} 0 \\1\end{pmatrix}u(t-\tau)
+\end{eqnarray}.
+donde existe un retardo en la ley de control, $\tau$. Entonces para incluir el retardo en el anàlisis del sistema el sistema se amplia en el dominio discreto, como en (\ref{eq:sistema_dicreto_ampliado}), lo cual da lugar al sistema ampliado en el espacio de estados. Si el tiempo de muestreo es $h=1s$ tenemos que:
+\begin{eqnarray}\label{eq:di_ampliado}
+\begin{pmatrix} x(kh+h) \\ z(kh+h)\end{pmatrix}=\underbrace{\begin{pmatrix}1& 1& \frac{\tau^2}{2} - \tau(\tau - 1)\\
+0& 1& \tau\\0& 0&0\end{pmatrix}}_{\Phi_{\Delta}}
+\begin{pmatrix} x(kh) \\ z(kh)
+\end{pmatrix}+\underbrace{\begin{pmatrix} \frac{(\tau - 1)^2}{2}\\ 1 - \tau\\
+             1
+\end{pmatrix}}_{\Gamma_{\Delta}}u(kh)
+\end{eqnarray} 
+
+Se desea aplicar una ley de control al sistema del doble integrador presentado en la ecuación anterior (\ref{eq:di_ampliado}), a través de una ganancia por realimentación de estados (\ref{eq:cg}), para lo cual se utilizará el método de la fórmula de ackermann, como en la ecuación (\ref{eq:ackermann}). Para ello se deben definir los polos deseados del sistema, los cuales  para este caso son por ejemplo:
+
+\begin{equation}\label{eq:di_poles}
+polos=\begin{pmatrix} 0.3 - 0.5i  & 0.3 + 0.5i  & 0.4 \end{pmatrix}
+\end{equation}
+
+Teniendo en cuenta la fórmula definida en la ecuación (\ref{eq:ackermann})
+ \begin{equation}\nonumber
+L_{e}(h,\tau)=\begin{pmatrix} 0 & 0 & \hdots & 1\end{pmatrix}C_{o}^{-1}\phi({\Phi_{\Delta}})
+\end{equation}
+
+Tenemos que la matriz de controlabilidad definida por (\ref{eq:controlability_matrix}), es para este caso:
+\begin{equation}\label{eq:di_controlability_matrix}
+C_{o}=\begin{pmatrix}
+0.5(\tau - 1.0)^2 & 1.5 - 1.0\tau& 2.5 - 1.0\tau\\
+1.0 - 1.0\tau&           1.0&           1.0\\
+1.0&           0&             0
+\end{pmatrix}
+\end{equation}
+
+El polinomio característico evaluado en la matriz ampliada $\Phi_{\Delta}$ es: 
+\begin{equation}\label{eq:di_pol_caracteristico}
+\phi(\Phi_{\Delta})=\begin{pmatrix}
+0.444&  1.58& -\tau(0.29\tau - 1.58\\
+0& 0.444&               0.58\tau\\
+0&     0&                 -0.136
+\end{pmatrix} 
+\end{equation}
+
+
+Ambas matrices (\ref{eq:di_pol_caracteristico}) y (\ref{eq:di_controlability_matrix}) dan lugar a una ley de control definida por la ecuación de la fórmula de ackermann, (\ref{eq:ackermann}) y en términos de el retraso, $\tau$:
+\begin{equation}\label{eq:cg_di}
+L_{e}(h,\tau)=\begin{pmatrix}
+0.444& 0.444\tau + 0.914& 0.222\tau^2 + 0.914\tau - 0.136
+\end{pmatrix}
+\end{equation}
+
+Luego, dado que el sistema ampliado (\ref{eq:di_ampliado}) se ha realimentado con una ley de control de la forma (\ref{eq:cg}), el cual se ha obtenido mediante la fórmula de ackermann como en (\ref{eq:cg_di}), podremos obtener el valor del retraso para el cual dan lugar los polos deseados del sistema; a través de la última componente de la matriz de ganancias que es igual a 0, $l_{n+1}=0$. Así al resolver de la ecuación (\ref{eq:0_ackermann}) se tiene que:
+\begin{equation}
+\tau=0.1438s
+\end{equation}
+  \end{enumerate}
+  
+ \section{CONCLUSIONES}
+ 
+ Este reporte muestra un método de diseño que permite encontrar el retraso de un sistema discreto dado los polos deseados, entonces el parámetro $\tau$ es ahora parte de los elementos de diseño del sistema. Para ello primero se necesitan saber ciertas condiciones de existencia de solución para  el retraso $\tau$. Para esto se prueba si para un sistema discreto en el espacio de estado, controlado a través de una realimentación de estados como la vista en (\ref{eq:cg}) es posible encontrar una solución para $\tau$, lo cual se demuestra mediante el difeomorfismo existente entre los mismos elementos de la matriz de realimentación (\ref{eq:cg}) y el retraso $\tau$. Del ejemplo anterior del sistema doble integrador se probó que existe una solución para el retraso $\tau$ siempre y cuando la ley de realimentación de estados no tenga la forma: 
+ 
+\begin{equation}
+L_{e}(h,\tau)=\begin{pmatrix}
+l_1& 0 & 0
+\end{pmatrix}
+\end{equation}
+ 
+Es decir existe solución para el retraso $\tau$ siempre y cuando el elemento $l_n$ de la matriz de ganancias sea diferente de 0, $l_2 \neq 0$.
+ 
+Luego se estableció una metodología de diseño, obteniendo una fórmula derivada de la fórmula de ackermann que se ha llamado \textit{Fórmula de Ackermann Modificada} de la cual se puede encontrar un retraso $\tau$ y el controlador para cierto sistema discreto ampliado y considerando que tal controlador tiene la forma establecida en (\ref{eq:cg}). En el caso del ejemplo, el retardo $\tau$ dados los polos seleccionados en (\ref{eq:di_poles}) y una realimentación para el sistema discreto ampliado como en (\ref{eq:cg_di}) es de $\tau=0.1438s$.
+
+ 
+\section{TRABAJOS FUTUROS}
+\begin{itemize}
+\item Relacionar estos resultados con el modelo complejo
+\textit{SOLUCIÓN}
+Podría probar cómo se representa en términos de k y tau el nuevo modelo a partir del modelo ampliado. 
+%Hacer mañana 2/10/2014.
+
+\item Probar condiciones de existencia de solución para el retraso $\tau$ cuando la ley de control por realimentación de estados $L_{e}(h,\tau)$ toma una forma diferente, por ejemplo, ahora $L_{e}(h,\tau)$ tome la forma:
+\begin{equation}
+L_{e}(h,\tau)=\begin{pmatrix}
+l_1& 0 & l_n & \hdots & ln+1
+\end{pmatrix}
+\end{equation}
+\end{itemize}
+
+\textit{SOLUCIÓN}
+Esta respuesta fue obtenida evaluando cuando los diferentes elementos de la matriz de realimentación (\ref{eq:cg_di}) se hacían 0 para obtener el retraso $\tau$. En el ejemplo del doble integrador lo que se encontró fue que cuando el elemento $l_{2}=0$, dando lugar a una matriz de ganancias del tipo:
+\begin{equation}\label{eq:cg_di2}
+L_{e}(h,\tau)=\begin{pmatrix}
+l_1& 0 & l_3 
+\end{pmatrix}
+\end{equation}
+diferente de la evaluada en (\ref{eq:cg_di}) para la que se encontró un retardo de $\tau=0.1438s$, el retardo es distinto y nos arroja un valor de $\tau=-0.1896s$ (``adelanto?"). La pregunta que surge y a ser evaluada es ¿si debería dar el mismo retraso?, se esperaría que sí. Y la segunda pregunta ¿es coherente utilizar una ley de control en la que no se consideren los estados originales del sistema?
+Se evaluará otro ejemplo para analizar ambas preguntas. 
+
+\section{APÉNDICE}
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+\appendix
+A continuación mostramos el código utilizado para el ejemplo.
+\begin{enumerate}
+ \item Calculamos el difemorfismo entre ley de control a utilizar (\ref{eq:cg}) y el retraso $\tau$. El script del código mostrado es jacobiano.m
+
+\begin{lstlisting}
+close all
+clear all
+syms  tau 
+digits(4)
+% %Planta del Doble Integrador
+A=[0 1;0 0]
+B=[0;1]
+C=[1 0]
+D=[0]
+%Discretización
+h=1
+n=size(A,2)
+[phi,gamma]=c2d(A,B,h)
+
+%Modelo ampliado 
+[A1 B1]=c2d(A,B,tau)
+[A2 B2]=c2d(A,B,h-tau)
+phiamp=[A1*A2 A2*B1;zeros(1,size(A,2)) 0];
+gammaamp=[B2;1];
+Cc=[1 zeros(1,n)];
+Dd=0;
+%Construyendo la K dependiendo de la dimensión de la variable
+na=size(phiamp,2)
+K=[]
+for i=1:na-1
+dat_txt{i} = ['K' num2str(i)]
+end
+ks=sym(dat_txt)
+K=[ks,0]
+phi_cl=phiamp+gammaamp*K
+%1. Polinomio característico
+%pol=poly(phi_cl)% No funciona para simbólico
+syms x 
+I=eye(na)
+pol=(x*I-phi_cl)
+dpol=vpa(det(pol))
+c=simplify(dpol,'Steps',30)%Polinomio característico
+% 2. Sacar los coeficientes que dependen de K1,K2,TAU
+[ux,t] = coeffs(c,x) %Coeficientes del polinomio caracterìstico
+size(ux)
+%3. Jacobiano
+J=jacobian(ux(2:na+1),[K(1:n),tau])
+%4. Difeomorfismo 
+difeo=simplify(vpa(det(J)))
+%*En el caso del ejemplo cuando K2=0 no hay soluciòn para tau, es decir no
+%es posible encontrar tau si [K2,K3]=[0,0]. En conclusiòn es un difeomorfismo para todos
+%los valores de K1,K2,K3, excepto para cuando K2=0 
+\end{lstlisting}
+
+\item  Calculamos el retraso $\tau$ a través de la Fórmula de Ackermann Modificada, presentada en la sección \ref{se:ackermann}., escogiendo los polos deseados.
+
+El siguiente script es una función que permite realizar este cálculo, gacker.m.
+
+\begin{lstlisting}
+function  [k,tau,px] = gacker(A,B,h,polos)
+syms k1 k2 tau  
+global A
+global B
+global h
+global polos
+%1. Discretización
+h=1
+n=size(A,2)
+[phi,gamma]=c2d(A,B,h)
+%Lo=-place(phi,gamma,p);
+%Modelo ampliado 
+[A1 B1]=c2d(A,B,tau)
+[A2 B2]=c2d(A,B,h-tau)
+phi=A1*A2
+gamma0=B2
+gamma1=A2*B1
+
+phiamp=[phi gamma1;zeros(1,size(A,2)) 0];
+gammaamp=[gamma0;1];
+Cc=[1 zeros(1,n)];
+Dd=0;
+%2. Ackermann
+%K=[0 0...1]*Co^(-1)*P(phiamp)*[0;0;...;1]
+%donde: P(phiamp) es el polinomio deseado evaluado en la matriz phiamp
+%2a. Controlability Matrix
+%C=[gammaamp phiamp*gammaamp phiamp^2*gammaamp] %Solo para orden 3
+%Dimension checking
+na = size(phiamp,1);
+nu = size(gammaamp,2);
+%co = zeros(n,n*nu);
+co(:,1:nu) = vpa(gammaamp);
+for k=1:na-1
+  co(:,k*nu+1:(k+1)*nu) =phiamp*co(:,(k-1)*nu+1:k*nu);
+end
+%2.b Polinomio caracterìstico deseado evaluado en phiamp
+x=phiamp
+px=eye(na,na)
+%Polinomio deseado
+for j=1:na
+%px=collect((x-p1*eye(3))*(x-p2*eye(3))*(x-p3*eye(3))) %the "alpha" coefficients
+px=eval(px*(x-polos(j)*eye(na)));
+end
+%2c.Control Gain
+k=[zeros(1,n),1]*inv(co)*px 
+%k=[0 0 1]*inv(co)*px 
+%tdaux=k*[0;0;1]*
+tdaux=k*[zeros(n,1);1]
+tau=vpa(solve(tdaux,tau))
+\end{lstlisting}
+
+El ejemplo del doble integrador se prueba mediante el siguiente script que usa la función gacker.m
+\begin{lstlisting}
+%Script que prueba la función gacker la cual nos permite encontrar el k y
+%tau dados ciertos parámetros de nuestro modelo [k1 k2 0], esto para tau<h.
+clear all
+%Prueba gacker para un doble integrador.
+global A
+global B
+global h
+global polos
+
+%Planta del Doble Integrador
+A=[0 1;0 0]
+B=[0;1]
+C=[1 0]
+D=[0]
+%Periodo de Muestreo
+h=1
+n=size(A,2)
+digits(4)
+%Polos deseados
+ r1a=0.4
+ r2a=0.3
+ i2a=0.5
+ u1=r2a-i2a*i;
+ u2=r2a+i2a*i;
+ u3=r1a;
+ u4=-r1a
+polos=[u1 u2 u3]; 
+[k,tau,px]=gacker(A,B,h,polos)
+tau=tau(find(tau > 0)) %Encontrar el valor positivo 
+%Controlador
+K=subs(k,tau) %El k3 puede considerarse 0!
+%Probar este controlador con el del modelo complejo
+%******Modelo Complejo****%
+d=1
+I=eye(n);
+Z=zeros(n,d);
+S=[I Z]; %Matriz  de selección
+P=[zeros(1,d+1) eye(1);eye(d+1) zeros(d+1,1)]
+%Modelo Ampliado
+[A1 B1]=c2d(A,B,tau)
+[A2 B2]=c2d(A,B,h-tau)
+phi=A1*A2
+gamma0=B2
+gamma1=A2*B1
+phiamp=[phi gamma1;zeros(1,size(A,2)) 0];
+gammaamp=[gamma0;1];
+Cc=[1 zeros(1,n)];
+Dd=0;
+%Matriz de Lazo cerrado
+phi_cl=phiamp-gammaamp*K
+[M,E]=eig(phi_cl)
+%Combinación sin Repetición
+k=(factorial(n+d))/(factorial(n)*factorial(d))
+Solucion_simplificada2=S*M*E*P^k*S'*(S*M*P^k*S')^(-1);
+%*******************************%
+\end{lstlisting}
+\end{enumerate}
+%% \section{}
+%% \label{}
+%% References
+%%
+%% Following citation commands can be used in the body text:
+%% Usage of \cite is as follows:
+%%   \cite{key}          ==>>  [#]
+%%   \cite[chap. 2]{key} ==>>  [#, chap. 2]
+%%   \citet{key}         ==>>  Author [#]
+
+%% References with bibTeX database:
+\newpage
+%\bibliographystyle{plain}
+\begin{scriptsize} % tiny(5) < scriptsize(7) < footnotesize(8) < small (9)
+\bibliographystyle{Latex/Classes/PhDbiblio-url2}
+%\renewcommand{\bibname}{Bibliografía}
+\bibliography{references}
+\end{scriptsize}
+
+
+%% Authors are advised to submit their bibtex database files. They are
+%% requested to list a bibtex style file in the manuscript if they do
+%% not want to use model1-num-names.bst.
+
+%% References without bibTeX database:
+
+% \begin{thebibliography}{00}
+
+%% \bibitem must have the following form:
+%%   \bibitem{key}...
+%%
+
+% \bibitem{}
+
+% \end{thebibliography}
+
+
+\end{document}
+
+%%
+%% End of file `elsarticle-template-1-num.tex'.
