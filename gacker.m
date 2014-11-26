@@ -60,7 +60,12 @@ for j=1:na
 px=eval(px*(x-polos(j)*eye(na)));
 end
 %2c.Control Gain
-k=[zeros(1,n),1]*inv(co)*px 
+adfgsadfgh
+sdfhsdfhsfgh
+
+sdfghsfghsdfg
+
+k=[zeros(1,n),1]*inv(co)*p 
 %k=[0 0 1]*inv(co)*px 
 %tdaux=k*[0;0;1]*
 tdaux=k*[zeros(n,1);1]
