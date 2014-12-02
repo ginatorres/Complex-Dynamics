@@ -19,7 +19,7 @@ if (ar~=ac)
     error('A matrix must be square')
 end
 if (br~=ar)
-    error('B matrix must have as mary rows as A matrix')
+    error('B matrix must have as many rows as A matrix')
 end
 if (bc>1)
     error('Right now we prly compute delays for systems with 1 input, B matrix must have 1 column')
@@ -36,7 +36,7 @@ end
 %---------------------------------------------------------------------
 %-- Check nature of poles --------------------------------------------
 %---------------------------------------------------------------------
-% We wart to determine how lprg must be the delay, to do so we look to
+% We want to determine how long must be the delay, to do so we look to
 % the complex part of the poles. The key is to know how mary single (not
 % cprjugated) complex poles do we have. This number is the number of 
 % extra states. ex:
@@ -71,44 +71,23 @@ n=ac;    %A-matrix size.... just to keep compatible code
 [phiamp,gammaamp,camp,damp]=dl2extended(A,B,zeros(1,ac),tau,h,1);
 
 %2. Ackermarn
-%K=[0 0...1]*Co^(-1)*P(phiacp)*[0;0;...;1]
-%dprde: P(phiacp) es el polinomio deseado evaluado en la matriz phiacp
-
-%2a. Cprtrolability Matrix
-%C=[gacmaacp phiacp*gacmaacp phiacp^2*gacmaacp] %Solo para orden 3
-%Dimensipr checking
+%K=[0 0...1]*Co^(-1)*P(phiamp)*[0;0;...;1]
+%where: P(phiamp) is the characteristic polynomial evaluated in phiamp (Cayley-Hamilton)
+%2a. Controlability Matrix
+%Dimension checking
 na = size(phiamp,1);
 nu = size(gammaamp,2);
 co(:,1:nu) = vpa(gammaamp);
 for k=1:na-1
   co(:,k*nu+1:(k+1)*nu) =phiamp*co(:,(k-1)*nu+1:k*nu);
 end
-% %Cpr un arrayfun si la dimensiòn de la matriz de cprtrolabilidad fuera
-% %bastarte grarde
-% y = arrayfun(@(k) phiacp*co(:,(k-1)*nu+1:k*nu),1:n-1,'UniformOutput',0);
-% %Habría que cprstruir la matriz cprcatenardo cpr los  vectores que hay en y
-% Co=cat(2,co,y{1},y{2})
-
-%Creardo el vector de polos y asignardolos para su uso en la funciòn
-%Si va y habrìa que hacerlo!!!!
-%2b. Polinomio característico, Cayley Haciltpr
-% for i=1:length(polos)
-% eval(sprintf('p%d=polos(i)',i))
-% end
-% ó
-% p.info = 'polos';
-% p=[]
-% arrayfun(@(i) eval(sprintf('p.p%d=polos(i)',i)),1:length(polos))
-% ó
-% arrayfun(@(i) eval(sprintf('p%d=polos(i)',i)),1:length(polos))
-
+%2.b Desired polynomial evaluated in phiamp
 x=phiamp;
 px=eye(na,na);
-%Polinomio deseado
 for j=1:na
     px=eval(px*(x-polos(j)*eye(na)));
 end
-%2c.Cprtrol Gain
+%2c.Control Gain
 k=[zeros(1,n),1]*inv(co)*px; 
 %tdaux=k*[0;0;1]*
 tdaux=k*[zeros(n,1);1];
