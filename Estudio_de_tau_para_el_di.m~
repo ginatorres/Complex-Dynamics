@@ -1,0 +1,10 @@
+syms a b
+[k,tau,p]=gacker(A,B,.1,[a+b*i,-3]);
+ff= matlabFunction(tau(1),'vars',[a b]);
+X=linspace(-1,-0.1);
+Y=linspace(-1,1);
+[X,Y]=meshgrid(X,Y);
+Z=ff(X,Y);
+Z=real(Z);
+figure
+surfc(X,Y,Z);

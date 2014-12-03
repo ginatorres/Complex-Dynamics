@@ -66,9 +66,8 @@ if (extra_states==0)
     px=0;
     return
 end
-if (~isempty(symvar(polos)))
-    extra_states=1;
-end
+if ~isempty(symbar(polos))
+    estra_states
 if (extra_states==1)
 %---------------------------------------------------------------------
 %-- Discrete simbolic model ------------------------------------------
@@ -91,9 +90,9 @@ end
 %2.b Desired polynomial evaluated in phiamp
 x=phiamp;
 px=eye(na,na);
-polos=exp(polos*h);
+exp(polos*h);
 for j=1:na
-    px=(px*(x-polos(j)*eye(na)));
+    px=eval(px*(x-polos(j)*eye(na)));
 end
 %2c.Control Gain
 k=[zeros(1,n),1]*inv(co)*px; 
