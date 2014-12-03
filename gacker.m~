@@ -62,12 +62,13 @@ polos=[polos extrapolos];
 if (extra_states==0)
     tau=0;
     [Ad,Bd]=c2d(A,B,h);
-    k=acker(Ad,Bd,exp(polos*h));
+    k=acker(Ad,Bd,polos:w);
     px=0;
     return
 end
-if ~isempty(symbar(polos))
-    estra_states
+if (~isempty(symvar(polos)))
+    extra_states=1;
+end
 if (extra_states==1)
 %---------------------------------------------------------------------
 %-- Discrete simbolic model ------------------------------------------
@@ -90,9 +91,9 @@ end
 %2.b Desired polynomial evaluated in phiamp
 x=phiamp;
 px=eye(na,na);
-exp(polos*h);
+%polos=exp(polos*h);
 for j=1:na
-    px=eval(px*(x-polos(j)*eye(na)));
+    px=(px*(x-polos(j)*eye(na)));
 end
 %2c.Control Gain
 k=[zeros(1,n),1]*inv(co)*px; 

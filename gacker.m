@@ -62,7 +62,7 @@ polos=[polos extrapolos];
 if (extra_states==0)
     tau=0;
     [Ad,Bd]=c2d(A,B,h);
-    k=acker(Ad,Bd,exp(polos*h));
+    k=acker(Ad,Bd,polos);
     px=0;
     return
 end
@@ -91,7 +91,7 @@ end
 %2.b Desired polynomial evaluated in phiamp
 x=phiamp;
 px=eye(na,na);
-polos=exp(polos*h);
+%polos=exp(polos*h);
 for j=1:na
     px=(px*(x-polos(j)*eye(na)));
 end
