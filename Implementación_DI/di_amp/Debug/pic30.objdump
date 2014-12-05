@@ -1,0 +1,2881 @@
+
+pic30.elf:     file format elf32-pic30
+
+Disassembly of section .reset:
+
+00000000 <.reset>:
+   0:	00 0c 04    	goto      0xc00 <__resetPRI>
+   2:	00 00 00 
+Disassembly of section .text:
+
+00000c00 <__resetPRI>:
+     c00:	0f 85 21    	mov.w     #0x1850, w15
+     c02:	00 fd 27    	mov.w     #0x7fd0, w0
+     c04:	00 01 88    	mov.w     w0, 0x20
+     c06:	00 00 00    	nop       
+     c08:	0a 00 07    	rcall     0xc1e <__psv_init>
+     c0a:	11 00 07    	rcall     0xc2e <__data_init>
+     c0c:	00 00 20    	mov.w     #0x0, w0
+     c0e:	00 00 e0    	cp0.w     w0
+     c10:	02 00 32    	bra       Z, 0xc16 <L11>
+     c12:	00 00 02    	call      0x0 <__resetPRI-0xc00>
+     c14:	00 00 00 
+
+00000c16 <L11>:
+     c16:	cc 14 02    	call      0x14cc <_main>
+     c18:	00 00 00 
+     c1a:	00 40 da    	.pword 0xda4000
+     c1c:	00 00 fe    	reset     
+
+00000c1e <__psv_init>:
+     c1e:	44 40 a9    	bclr.b    0x44, #0x2
+     c20:	00 05 20    	mov.w     #0x50, w0
+     c22:	00 00 e0    	cp0.w     w0
+     c24:	03 00 32    	bra       Z, 0xc2c <L12>
+     c26:	00 00 20    	mov.w     #0x0, w0
+     c28:	a0 01 88    	mov.w     w0, 0x34
+     c2a:	44 40 a8    	bset.b    0x44, #0x2
+
+00000c2c <L12>:
+     c2c:	00 00 06    	return    
+
+00000c2e <__data_init>:
+     c2e:	40 8a 21    	mov.w     #0x18a4, w0
+     c30:	01 00 20    	mov.w     #0x0, w1
+     c32:	15 00 37    	bra       0xc5e <L41>
+
+00000c34 <L13>:
+     c34:	62 00 40    	add.w     w0, #0x2, w0
+     c36:	e0 80 48    	addc.w    w1, #0x0, w1
+     c38:	91 01 88    	mov.w     w1, 0x32
+     c3a:	90 01 ba    	tblrdl.w  [w0], w3
+     c3c:	62 00 40    	add.w     w0, #0x2, w0
+     c3e:	e0 80 48    	addc.w    w1, #0x0, w1
+     c40:	91 01 88    	mov.w     w1, 0x32
+     c42:	90 02 ba    	tblrdl.w  [w0], w5
+     c44:	62 00 40    	add.w     w0, #0x2, w0
+     c46:	e0 80 48    	addc.w    w1, #0x0, w1
+     c48:	00 02 eb    	clr.w     w4
+     c4a:	60 28 e1    	cp.w      w5, #0x0
+     c4c:	04 00 3a    	bra       NZ, 0xc56 <L21>
+
+00000c4e <L91>:
+     c4e:	00 59 eb    	clr.b     [w2++]
+     c50:	83 01 e9    	dec.w     w3, w3
+     c52:	fd ff 3e    	bra       GTU, 0xc4e <L91>
+     c54:	04 00 37    	bra       0xc5e <L41>
+
+00000c56 <L21>:
+     c56:	61 28 e1    	cp.w      w5, #0x1
+     c58:	01 00 32    	bra       Z, 0xc5c <L31>
+     c5a:	00 82 eb    	setm.w    w4
+
+00000c5c <L31>:
+     c5c:	05 00 07    	rcall     0xc68 <L14>
+
+00000c5e <L41>:
+     c5e:	91 01 88    	mov.w     w1, 0x32
+     c60:	10 01 ba    	tblrdl.w  [w0], w2
+     c62:	02 00 e0    	cp0.w     w2
+     c64:	e7 ff 3a    	bra       NZ, 0xc34 <L13>
+     c66:	00 00 05    	retlw.w   #0x0, w0
+
+00000c68 <L14>:
+     c68:	91 01 88    	mov.w     w1, 0x32
+     c6a:	80 02 78    	mov.w     w0, w5
+     c6c:	62 00 40    	add.w     w0, #0x2, w0
+     c6e:	e0 80 48    	addc.w    w1, #0x0, w1
+     c70:	35 59 ba    	tblrdl.b  [w5++], [w2++]
+     c72:	83 01 e9    	dec.w     w3, w3
+     c74:	08 00 32    	bra       Z, 0xc86 <L22>
+     c76:	25 59 ba    	tblrdl.b  [w5--], [w2++]
+     c78:	83 01 e9    	dec.w     w3, w3
+     c7a:	05 00 32    	bra       Z, 0xc86 <L22>
+     c7c:	04 00 e0    	cp0.w     w4
+     c7e:	f4 ff 32    	bra       Z, 0xc68 <L14>
+     c80:	15 d9 ba    	tblrdh.b  [w5], [w2++]
+     c82:	83 01 e9    	dec.w     w3, w3
+     c84:	f1 ff 3a    	bra       NZ, 0xc68 <L14>
+
+00000c86 <L22>:
+     c86:	00 00 06    	return    
+
+00000c88 <.handle>:
+     c88:	00 14 04    	goto      0x1400 <_FuncTaskReferenceChange>
+     c8a:	00 00 00 
+     c8c:	26 14 04    	goto      0x1426 <_FuncTaskController>
+     c8e:	00 00 00 
+     c90:	ac 14 04    	goto      0x14ac <_FuncTaskActuator>
+     c92:	00 00 00 
+     c94:	64 13 04    	goto      0x1364 <_FuncTaskSupervision>
+     c96:	00 00 00 
+
+00000c98 <___subsf3>:
+     c98:	03 f0 a2    	btg.w     w3, #0xf
+
+00000c9a <___addsf3>:
+     c9a:	88 9f be    	mov.d     w8, [w15++]
+     c9c:	8a 9f be    	mov.d     w10, [w15++]
+     c9e:	8c 1f 78    	mov.w     w12, [w15++]
+     ca0:	20 01 07    	rcall     0xee2 <__funpack2>
+     ca2:	27 01 33    	bra       N, 0xef2 <__fPropagateNaN>
+     ca4:	64 50 e1    	cp.w      w10, #0x4
+     ca6:	4f 00 32    	bra       Z, 0xd46 <aisinfinite>
+
+00000ca8 <checkspecialb>:
+     ca8:	64 20 e1    	cp.w      w4, #0x4
+     caa:	52 00 32    	bra       Z, 0xd50 <return2>
+     cac:	03 82 6c    	xor.w     w9, w3, w4
+     cae:	07 00 3b    	bra       NN, 0xcbe <getsign>
+     cb0:	09 05 d0    	sl.w      w9, w10
+     cb2:	03 06 d0    	sl.w      w3, w12
+     cb4:	82 0f 54    	sub.w     w8, w2, [w15]
+     cb6:	0c 06 5d    	subb.w    w10, w12, w12
+     cb8:	02 00 39    	bra       NC, 0xcbe <getsign>
+     cba:	02 00 32    	bra       Z, 0xcc0 <gotsign>
+     cbc:	89 01 78    	mov.w     w9, w3
+
+00000cbe <getsign>:
+     cbe:	03 06 78    	mov.w     w3, w12
+
+00000cc0 <gotsign>:
+     cc0:	85 82 55    	sub.w     w11, w5, w5
+     cc2:	04 00 3d    	bra       GE, 0xccc <expcanonical>
+     cc4:	00 03 fd    	exch      w0, w6
+     cc6:	81 03 fd    	exch      w1, w7
+     cc8:	85 02 ea    	neg.w     w5, w5
+     cca:	8b 85 42    	add.w     w5, w11, w11
+
+00000ccc <expcanonical>:
+     ccc:	84 0f 72    	ior.w     w4, w4, [w15]
+     cce:	02 00 3b    	bra       NN, 0xcd4 <nonegate>
+     cd0:	60 00 10    	subr.w    w0, #0x0, w0
+     cd2:	e0 80 18    	subbr.w   w1, #0x0, w1
+
+00000cd4 <nonegate>:
+     cd4:	60 11 b8    	mul.uu    w2, #0x0, w2
+     cd6:	00 05 eb    	clr.w     w10
+     cd8:	7a 28 e1    	cp.w      w5, #0x1a
+     cda:	0a 00 39    	bra       NC, 0xcf0 <aligniter>
+     cdc:	06 00 78    	mov.w     w6, w0
+     cde:	c7 5d dd    	sl.w      w11, #0x7, w11
+     ce0:	f7 07 b2    	and.w     #0x7f, w7
+     ce2:	87 80 75    	ior.w     w11, w7, w1
+     ce4:	2d 00 37    	bra       0xd40 <signoff>
+
+00000ce6 <align>:
+     ce6:	82 81 71    	ior.w     w3, w2, w3
+     ce8:	0a 01 78    	mov.w     w10, w2
+     cea:	61 05 60    	and.w     w0, #0x1, w10
+     cec:	81 80 d1    	asr.w     w1, w1
+     cee:	00 80 d3    	rrc.w     w0, w0
+
+00000cf0 <aligniter>:
+     cf0:	85 02 e9    	dec.w     w5, w5
+     cf2:	f9 ff 3b    	bra       NN, 0xce6 <align>
+
+00000cf4 <aligned>:
+     cf4:	06 04 40    	add.w     w0, w6, w8
+     cf6:	87 84 48    	addc.w    w1, w7, w9
+     cf8:	02 00 3b    	bra       NN, 0xcfe <normalizesum>
+     cfa:	60 04 14    	subr.w    w8, #0x0, w8
+     cfc:	e0 84 1c    	subbr.w   w9, #0x0, w9
+
+00000cfe <normalizesum>:
+     cfe:	09 88 a3    	btst.z    w9, #0x8
+     d00:	07 00 32    	bra       Z, 0xd10 <checknormal>
+     d02:	8a 81 71    	ior.w     w3, w10, w3
+     d04:	82 81 71    	ior.w     w3, w2, w3
+     d06:	61 01 64    	and.w     w8, #0x1, w2
+     d08:	89 04 d1    	lsr.w     w9, w9
+     d0a:	08 84 d3    	rrc.w     w8, w8
+     d0c:	8b 05 e8    	inc.w     w11, w11
+     d0e:	17 00 37    	bra       0xd3e <round>
+
+00000d10 <checknormal>:
+     d10:	09 78 a3    	btst.z    w9, #0x7
+     d12:	13 00 3a    	bra       NZ, 0xd3a <discardguard>
+
+00000d14 <underflow>:
+     d14:	0b 00 e0    	cp0.w     w11
+     d16:	13 00 34    	bra       LE, 0xd3e <round>
+     d18:	8b 05 e9    	dec.w     w11, w11
+     d1a:	08 04 44    	add.w     w8, w8, w8
+     d1c:	89 84 4c    	addc.w    w9, w9, w9
+     d1e:	0a 44 74    	ior.b     w8, w10, w8
+     d20:	09 78 a3    	btst.z    w9, #0x7
+     d22:	0d 00 3a    	bra       NZ, 0xd3e <round>
+
+00000d24 <normalizeloop>:
+     d24:	0b 00 e0    	cp0.w     w11
+     d26:	07 00 34    	bra       LE, 0xd36 <normalizeexit>
+     d28:	8b 05 e9    	dec.w     w11, w11
+     d2a:	08 04 44    	add.w     w8, w8, w8
+     d2c:	89 84 4c    	addc.w    w9, w9, w9
+     d2e:	01 00 3a    	bra       NZ, 0xd32 <normalizetest>
+     d30:	0b 00 20    	mov.w     #0x0, w11
+
+00000d32 <normalizetest>:
+     d32:	09 78 a3    	btst.z    w9, #0x7
+     d34:	f7 ff 32    	bra       Z, 0xd24 <normalizeloop>
+
+00000d36 <normalizeexit>:
+     d36:	00 01 eb    	clr.w     w2
+     d38:	02 00 37    	bra       0xd3e <round>
+
+00000d3a <discardguard>:
+     d3a:	82 81 71    	ior.w     w3, w2, w3
+     d3c:	0a 01 78    	mov.w     w10, w2
+
+00000d3e <round>:
+     d3e:	96 00 07    	rcall     0xe6c <__fpack>
+
+00000d40 <signoff>:
+     d40:	0c f0 a7    	btsc.w    w12, #0xf
+     d42:	01 f0 a0    	bset.w    w1, #0xf
+     d44:	df 00 37    	bra       0xf04 <__fbopExit>
+
+00000d46 <aisinfinite>:
+     d46:	64 20 e1    	cp.w      w4, #0x4
+     d48:	02 00 3a    	bra       NZ, 0xd4e <return8>
+     d4a:	83 8f 6c    	xor.w     w9, w3, [w15]
+     d4c:	df 00 33    	bra       N, 0xf0c <__fbopReturnNaN>
+
+00000d4e <return8>:
+     d4e:	08 01 be    	mov.d     w8, w2
+
+00000d50 <return2>:
+     d50:	02 00 be    	mov.d     w2, w0
+     d52:	d8 00 37    	bra       0xf04 <__fbopExit>
+
+00000d54 <___divsf3>:
+     d54:	88 9f be    	mov.d     w8, [w15++]
+     d56:	8a 9f be    	mov.d     w10, [w15++]
+     d58:	8c 1f 78    	mov.w     w12, [w15++]
+     d5a:	c3 00 07    	rcall     0xee2 <__funpack2>
+     d5c:	ca 00 33    	bra       N, 0xef2 <__fPropagateNaN>
+     d5e:	03 86 6c    	xor.w     w9, w3, w12
+     d60:	64 50 e1    	cp.w      w10, #0x4
+     d62:	2e 00 32    	bra       Z, 0xdc0 <aisinfinite>
+     d64:	64 20 e1    	cp.w      w4, #0x4
+     d66:	33 00 32    	bra       Z, 0xdce <returnZero>
+     d68:	61 50 e1    	cp.w      w10, #0x1
+     d6a:	2f 00 32    	bra       Z, 0xdca <aiszero>
+     d6c:	61 20 e1    	cp.w      w4, #0x1
+     d6e:	31 00 32    	bra       Z, 0xdd2 <returnInf>
+
+00000d70 <finitenonzero>:
+     d70:	85 85 55    	sub.w     w11, w5, w11
+     d72:	eb 07 b0    	add.w     #0x7e, w11
+     d74:	09 00 20    	mov.w     #0x0, w9
+     d76:	08 04 20    	mov.w     #0x40, w8
+     d78:	05 00 37    	bra       0xd84 <diventry>
+
+00000d7a <divnext>:
+     d7a:	08 04 44    	add.w     w8, w8, w8
+     d7c:	89 84 4c    	addc.w    w9, w9, w9
+     d7e:	0a 00 31    	bra       C, 0xd94 <divdone>
+
+00000d80 <divloop>:
+     d80:	06 03 43    	add.w     w6, w6, w6
+     d82:	87 83 4b    	addc.w    w7, w7, w7
+
+00000d84 <diventry>:
+     d84:	00 01 53    	sub.w     w6, w0, w2
+     d86:	81 81 5b    	subb.w    w7, w1, w3
+     d88:	f8 ff 33    	bra       N, 0xd7a <divnext>
+     d8a:	02 03 be    	mov.d     w2, w6
+     d8c:	08 00 a0    	bset.w    w8, #0x0
+     d8e:	08 04 44    	add.w     w8, w8, w8
+     d90:	89 84 4c    	addc.w    w9, w9, w9
+     d92:	f6 ff 39    	bra       NC, 0xd80 <divloop>
+
+00000d94 <divdone>:
+     d94:	c6 39 dd    	sl.w      w7, #0x6, w3
+     d96:	83 01 73    	ior.w     w6, w3, w3
+     d98:	01 00 32    	bra       Z, 0xd9c <stickyok>
+     d9a:	13 00 20    	mov.w     #0x1, w3
+
+00000d9c <stickyok>:
+     d9c:	89 04 d1    	lsr.w     w9, w9
+     d9e:	08 84 d3    	rrc.w     w8, w8
+     da0:	09 98 a3    	btst.z    w9, #0x9
+     da2:	05 00 32    	bra       Z, 0xdae <guardused>
+     da4:	08 00 a7    	btsc.w    w8, #0x0
+     da6:	03 00 a0    	bset.w    w3, #0x0
+     da8:	89 04 d1    	lsr.w     w9, w9
+     daa:	08 84 d3    	rrc.w     w8, w8
+     dac:	8b 05 e8    	inc.w     w11, w11
+
+00000dae <guardused>:
+     dae:	89 04 d1    	lsr.w     w9, w9
+     db0:	08 84 d3    	rrc.w     w8, w8
+     db2:	00 01 eb    	clr.w     w2
+     db4:	02 81 d2    	rlc.w     w2, w2
+     db6:	5a 00 07    	rcall     0xe6c <__fpack>
+
+00000db8 <return0>:
+     db8:	01 f0 a1    	bclr.w    w1, #0xf
+     dba:	0c f0 a7    	btsc.w    w12, #0xf
+     dbc:	01 f0 a0    	bset.w    w1, #0xf
+     dbe:	a2 00 37    	bra       0xf04 <__fbopExit>
+
+00000dc0 <aisinfinite>:
+     dc0:	64 20 e1    	cp.w      w4, #0x4
+     dc2:	a4 00 32    	bra       Z, 0xf0c <__fbopReturnNaN>
+
+00000dc4 <return8>:
+     dc4:	08 01 be    	mov.d     w8, w2
+
+00000dc6 <return2>:
+     dc6:	02 00 be    	mov.d     w2, w0
+     dc8:	f7 ff 37    	bra       0xdb8 <return0>
+
+00000dca <aiszero>:
+     dca:	61 20 e1    	cp.w      w4, #0x1
+     dcc:	9f 00 32    	bra       Z, 0xf0c <__fbopReturnNaN>
+
+00000dce <returnZero>:
+     dce:	60 00 b8    	mul.uu    w0, #0x0, w0
+     dd0:	f3 ff 37    	bra       0xdb8 <return0>
+
+00000dd2 <returnInf>:
+     dd2:	00 00 20    	mov.w     #0x0, w0
+     dd4:	01 f8 27    	mov.w     #0x7f80, w1
+     dd6:	f0 ff 37    	bra       0xdb8 <return0>
+
+00000dd8 <___eqsf2>:
+     dd8:	14 00 20    	mov.w     #0x1, w4
+     dda:	cf 00 37    	bra       0xf7a <__fcompare>
+
+00000ddc <___gesf2>:
+     ddc:	f4 ff 2f    	mov.w     #0xffff, w4
+     dde:	cd 00 37    	bra       0xf7a <__fcompare>
+
+00000de0 <___fixunssfsi>:
+     de0:	00 01 be    	mov.d     w0, w2
+     de2:	6a 00 07    	rcall     0xeb8 <__funpack>
+     de4:	04 70 a7    	btsc.w    w4, #0x7
+     de6:	03 f0 a1    	bclr.w    w3, #0xf
+     de8:	03 f8 a3    	btst.z    w3, #0xf
+     dea:	13 00 3a    	bra       NZ, 0xe12 <returnzero>
+     dec:	65 09 b1    	sub.w     #0x96, w5
+     dee:	10 00 32    	bra       Z, 0xe10 <exit>
+     df0:	09 00 35    	bra       LT, 0xe04 <shiftright>
+     df2:	69 28 e1    	cp.w      w5, #0x9
+     df4:	02 00 35    	bra       LT, 0xdfa <shiftleft>
+     df6:	01 00 28    	mov.w     #0x8000, w1
+     df8:	00 00 05    	retlw.w   #0x0, w0
+
+00000dfa <shiftleft>:
+     dfa:	00 00 40    	add.w     w0, w0, w0
+     dfc:	81 80 48    	addc.w    w1, w1, w1
+     dfe:	85 02 e9    	dec.w     w5, w5
+     e00:	fc ff 3a    	bra       NZ, 0xdfa <shiftleft>
+     e02:	00 00 06    	return    
+
+00000e04 <shiftright>:
+     e04:	f8 8f 42    	add.w     w5, #0x18, [w15]
+     e06:	05 00 35    	bra       LT, 0xe12 <returnzero>
+
+00000e08 <shiftrightloop>:
+     e08:	81 00 d1    	lsr.w     w1, w1
+     e0a:	00 80 d3    	rrc.w     w0, w0
+     e0c:	85 02 e8    	inc.w     w5, w5
+     e0e:	fc ff 3a    	bra       NZ, 0xe08 <shiftrightloop>
+
+00000e10 <exit>:
+     e10:	00 00 06    	return    
+
+00000e12 <returnzero>:
+     e12:	80 00 eb    	clr.w     w1
+     e14:	00 00 05    	retlw.w   #0x0, w0
+
+00000e16 <___floatsisf>:
+     e16:	88 9f be    	mov.d     w8, [w15++]
+     e18:	8a 9f be    	mov.d     w10, [w15++]
+     e1a:	01 05 78    	mov.w     w1, w10
+     e1c:	01 00 e0    	cp0.w     w1
+     e1e:	04 00 35    	bra       LT, 0xe28 <negative>
+     e20:	08 00 3c    	bra       GT, 0xe32 <notspecial>
+     e22:	00 00 e0    	cp0.w     w0
+     e24:	20 00 32    	bra       Z, 0xe66 <return0>
+     e26:	05 00 37    	bra       0xe32 <notspecial>
+
+00000e28 <negative>:
+     e28:	60 00 10    	subr.w    w0, #0x0, w0
+     e2a:	e0 80 18    	subbr.w   w1, #0x0, w1
+     e2c:	02 00 3b    	bra       NN, 0xe32 <notspecial>
+     e2e:	01 f0 2c    	mov.w     #0xcf00, w1
+     e30:	1a 00 37    	bra       0xe66 <return0>
+
+00000e32 <notspecial>:
+     e32:	00 04 be    	mov.d     w0, w8
+     e34:	60 11 b8    	mul.uu    w2, #0x0, w2
+     e36:	6b 09 20    	mov.w     #0x96, w11
+     e38:	09 82 cf    	ff1l      w9, w4
+     e3a:	02 00 39    	bra       NC, 0xe40 <fixshift>
+     e3c:	08 82 cf    	ff1l      w8, w4
+     e3e:	04 41 b0    	add.b     #0x10, w4
+
+00000e40 <fixshift>:
+     e40:	69 42 52    	sub.b     w4, #0x9, w4
+     e42:	0e 00 32    	bra       Z, 0xe60 <round>
+     e44:	08 00 3b    	bra       NN, 0xe56 <shiftleft>
+
+00000e46 <shiftright>:
+     e46:	82 81 71    	ior.w     w3, w2, w3
+     e48:	61 01 64    	and.w     w8, #0x1, w2
+     e4a:	89 04 d1    	lsr.w     w9, w9
+     e4c:	08 84 d3    	rrc.w     w8, w8
+     e4e:	8b 05 e8    	inc.w     w11, w11
+     e50:	04 42 e8    	inc.b     w4, w4
+     e52:	f9 ff 3a    	bra       NZ, 0xe46 <shiftright>
+     e54:	05 00 37    	bra       0xe60 <round>
+
+00000e56 <shiftleft>:
+     e56:	08 04 44    	add.w     w8, w8, w8
+     e58:	89 84 4c    	addc.w    w9, w9, w9
+     e5a:	8b 05 e9    	dec.w     w11, w11
+     e5c:	04 42 e9    	dec.b     w4, w4
+     e5e:	fb ff 3a    	bra       NZ, 0xe56 <shiftleft>
+
+00000e60 <round>:
+     e60:	05 00 07    	rcall     0xe6c <__fpack>
+     e62:	0a f0 a7    	btsc.w    w10, #0xf
+     e64:	01 f0 a0    	bset.w    w1, #0xf
+
+00000e66 <return0>:
+     e66:	4f 05 be    	mov.d     [--w15], w10
+     e68:	4f 04 be    	mov.d     [--w15], w8
+     e6a:	00 00 06    	return    
+
+00000e6c <__fpack>:
+     e6c:	81 00 20    	mov.w     #0x8, w1
+     e6e:	61 80 55    	sub.w     w11, #0x1, w0
+     e70:	0b 00 3d    	bra       GE, 0xe88 <notsubnormal>
+     e72:	0b 00 20    	mov.w     #0x0, w11
+     e74:	61 fe 2f    	mov.w     #0xffe6, w1
+     e76:	01 00 e1    	cp.w      w0, w1
+     e78:	1d 00 34    	bra       LE, 0xeb4 <zerosig>
+
+00000e7a <subnormal>:
+     e7a:	82 81 71    	ior.w     w3, w2, w3
+     e7c:	61 01 64    	and.w     w8, #0x1, w2
+     e7e:	89 04 d1    	lsr.w     w9, w9
+     e80:	08 84 d3    	rrc.w     w8, w8
+     e82:	00 00 e8    	inc.w     w0, w0
+     e84:	fa ff 3a    	bra       NZ, 0xe7a <subnormal>
+     e86:	71 00 20    	mov.w     #0x7, w1
+
+00000e88 <notsubnormal>:
+     e88:	61 00 64    	and.w     w8, #0x1, w0
+     e8a:	03 00 70    	ior.w     w0, w3, w0
+     e8c:	02 00 60    	and.w     w0, w2, w0
+     e8e:	09 00 32    	bra       Z, 0xea2 <packupandgo>
+     e90:	61 04 44    	add.w     w8, #0x1, w8
+     e92:	e0 84 4c    	addc.w    w9, #0x0, w9
+     e94:	09 88 a5    	btst.z    w9, w1
+     e96:	05 00 32    	bra       Z, 0xea2 <packupandgo>
+     e98:	8b 05 e8    	inc.w     w11, w11
+     e9a:	68 08 e1    	cp.w      w1, #0x8
+     e9c:	02 00 3a    	bra       NZ, 0xea2 <packupandgo>
+     e9e:	89 04 d1    	lsr.w     w9, w9
+     ea0:	08 84 d3    	rrc.w     w8, w8
+
+00000ea2 <packupandgo>:
+     ea2:	f2 0f 20    	mov.w     #0xff, w2
+     ea4:	02 58 e1    	cp.w      w11, w2
+     ea6:	05 00 3d    	bra       GE, 0xeb2 <overflow>
+     ea8:	c7 5d dd    	sl.w      w11, #0x7, w11
+     eaa:	f9 07 b2    	and.w     #0x7f, w9
+     eac:	89 80 75    	ior.w     w11, w9, w1
+     eae:	08 00 78    	mov.w     w8, w0
+     eb0:	00 00 06    	return    
+
+00000eb2 <overflow>:
+     eb2:	0b f8 27    	mov.w     #0x7f80, w11
+
+00000eb4 <zerosig>:
+     eb4:	8b 00 78    	mov.w     w11, w1
+     eb6:	00 00 05    	retlw.w   #0x0, w0
+
+00000eb8 <__funpack>:
+     eb8:	c7 0a de    	lsr.w     w1, #0x7, w5
+     eba:	f1 07 b2    	and.w     #0x7f, w1
+     ebc:	f5 0f b2    	and.w     #0xff, w5
+     ebe:	08 00 32    	bra       Z, 0xed0 <zeroorsub>
+     ec0:	e1 cf 42    	add.b     w5, #0x1, [w15]
+     ec2:	02 00 32    	bra       Z, 0xec8 <nanorinf>
+
+00000ec4 <finitereturn>:
+     ec4:	01 70 a0    	bset.w    w1, #0x7
+     ec6:	24 00 05    	retlw.w   #0x2, w4
+
+00000ec8 <nanorinf>:
+     ec8:	81 0f 70    	ior.w     w0, w1, [w15]
+     eca:	01 00 32    	bra       Z, 0xece <infinite>
+     ecc:	04 08 05    	retlw.w   #0x80, w4
+
+00000ece <infinite>:
+     ece:	44 00 05    	retlw.w   #0x4, w4
+
+00000ed0 <zeroorsub>:
+     ed0:	81 0f 70    	ior.w     w0, w1, [w15]
+     ed2:	02 00 3a    	bra       NZ, 0xed8 <subnormal>
+     ed4:	14 00 05    	retlw.w   #0x1, w4
+
+00000ed6 <normalize>:
+     ed6:	85 02 e9    	dec.w     w5, w5
+
+00000ed8 <subnormal>:
+     ed8:	00 00 40    	add.w     w0, w0, w0
+     eda:	81 c0 48    	addc.b    w1, w1, w1
+     edc:	fc ff 3b    	bra       NN, 0xed6 <normalize>
+     ede:	01 70 a0    	bset.w    w1, #0x7
+     ee0:	24 00 05    	retlw.w   #0x2, w4
+
+00000ee2 <__funpack2>:
+     ee2:	00 04 be    	mov.d     w0, w8
+     ee4:	e9 ff 07    	rcall     0xeb8 <__funpack>
+     ee6:	00 03 be    	mov.d     w0, w6
+     ee8:	04 05 be    	mov.d     w4, w10
+     eea:	02 00 be    	mov.d     w2, w0
+     eec:	e5 ff 07    	rcall     0xeb8 <__funpack>
+     eee:	84 4f 75    	ior.b     w10, w4, [w15]
+     ef0:	00 00 06    	return    
+
+00000ef2 <__fPropagateNaN>:
+     ef2:	02 00 be    	mov.d     w2, w0
+     ef4:	64 50 e1    	cp.w      w10, #0x4
+     ef6:	05 00 36    	bra       LEU, 0xf02 <return0>
+     ef8:	64 20 e1    	cp.w      w4, #0x4
+     efa:	02 00 36    	bra       LEU, 0xf00 <return8>
+     efc:	09 68 a3    	btst.z    w9, #0x6
+     efe:	01 00 3a    	bra       NZ, 0xf02 <return0>
+
+00000f00 <return8>:
+     f00:	08 00 be    	mov.d     w8, w0
+
+00000f02 <return0>:
+     f02:	01 60 a0    	bset.w    w1, #0x6
+
+00000f04 <__fbopExit>:
+     f04:	4f 06 78    	mov.w     [--w15], w12
+     f06:	4f 05 be    	mov.d     [--w15], w10
+     f08:	4f 04 be    	mov.d     [--w15], w8
+     f0a:	00 00 06    	return    
+
+00000f0c <__fbopReturnNaN>:
+     f0c:	f0 ff 2f    	mov.w     #0xffff, w0
+     f0e:	f1 ff 27    	mov.w     #0x7fff, w1
+     f10:	f9 ff 37    	bra       0xf04 <__fbopExit>
+
+00000f12 <___mulsf3>:
+     f12:	88 9f be    	mov.d     w8, [w15++]
+     f14:	8a 9f be    	mov.d     w10, [w15++]
+     f16:	8c 1f 78    	mov.w     w12, [w15++]
+     f18:	e4 ff 07    	rcall     0xee2 <__funpack2>
+     f1a:	eb ff 33    	bra       N, 0xef2 <__fPropagateNaN>
+     f1c:	03 86 6c    	xor.w     w9, w3, w12
+     f1e:	64 50 e1    	cp.w      w10, #0x4
+     f20:	24 00 32    	bra       Z, 0xf6a <aisinfinite>
+     f22:	64 20 e1    	cp.w      w4, #0x4
+     f24:	27 00 32    	bra       Z, 0xf74 <bisinfinite>
+     f26:	61 50 e1    	cp.w      w10, #0x1
+     f28:	22 00 32    	bra       Z, 0xf6e <return8>
+     f2a:	61 20 e1    	cp.w      w4, #0x1
+     f2c:	21 00 32    	bra       Z, 0xf70 <return2>
+     f2e:	8b 85 42    	add.w     w5, w11, w11
+     f30:	eb 07 b1    	sub.w     #0x7e, w11
+     f32:	01 34 b8    	mul.uu    w6, w1, w8
+     f34:	00 3a b8    	mul.uu    w7, w0, w4
+     f36:	08 04 42    	add.w     w4, w8, w8
+     f38:	89 84 4a    	addc.w    w5, w9, w9
+     f3a:	01 3a b8    	mul.uu    w7, w1, w4
+     f3c:	00 30 b8    	mul.uu    w6, w0, w0
+     f3e:	88 80 40    	add.w     w1, w8, w1
+     f40:	09 01 4a    	addc.w    w4, w9, w2
+     f42:	04 00 33    	bra       N, 0xf4c <formsticky>
+     f44:	00 00 40    	add.w     w0, w0, w0
+     f46:	81 80 48    	addc.w    w1, w1, w1
+     f48:	02 01 49    	addc.w    w2, w2, w2
+     f4a:	8b 05 e9    	dec.w     w11, w11
+
+00000f4c <formsticky>:
+     f4c:	c9 09 dd    	sl.w      w1, #0x9, w3
+     f4e:	83 01 70    	ior.w     w0, w3, w3
+     f50:	01 00 32    	bra       Z, 0xf54 <formRandSig>
+     f52:	13 00 20    	mov.w     #0x1, w3
+
+00000f54 <formRandSig>:
+     f54:	c8 14 de    	lsr.w     w2, #0x8, w9
+     f56:	48 14 dd    	sl.w      w2, #0x8, w8
+     f58:	47 09 de    	lsr.w     w1, #0x7, w2
+     f5a:	12 00 b2    	and.w     #0x1, w2
+     f5c:	c8 08 de    	lsr.w     w1, #0x8, w1
+     f5e:	08 84 70    	ior.w     w1, w8, w8
+     f60:	85 ff 07    	rcall     0xe6c <__fpack>
+
+00000f62 <return0>:
+     f62:	01 f0 a1    	bclr.w    w1, #0xf
+     f64:	0c f0 a7    	btsc.w    w12, #0xf
+     f66:	01 f0 a0    	bset.w    w1, #0xf
+     f68:	cd ff 37    	bra       0xf04 <__fbopExit>
+
+00000f6a <aisinfinite>:
+     f6a:	61 20 e1    	cp.w      w4, #0x1
+     f6c:	cf ff 32    	bra       Z, 0xf0c <__fbopReturnNaN>
+
+00000f6e <return8>:
+     f6e:	08 01 be    	mov.d     w8, w2
+
+00000f70 <return2>:
+     f70:	02 00 be    	mov.d     w2, w0
+     f72:	f7 ff 37    	bra       0xf62 <return0>
+
+00000f74 <bisinfinite>:
+     f74:	61 50 e1    	cp.w      w10, #0x1
+     f76:	fc ff 3a    	bra       NZ, 0xf70 <return2>
+     f78:	c9 ff 37    	bra       0xf0c <__fbopReturnNaN>
+
+00000f7a <__fcompare>:
+     f7a:	88 9f be    	mov.d     w8, [w15++]
+     f7c:	8a 9f be    	mov.d     w10, [w15++]
+     f7e:	84 1f 78    	mov.w     w4, [w15++]
+     f80:	b0 ff 07    	rcall     0xee2 <__funpack2>
+     f82:	4f 00 78    	mov.w     [--w15], w0
+     f84:	11 00 33    	bra       N, 0xfa8 <exit>
+     f86:	f0 ff 2f    	mov.w     #0xffff, w0
+     f88:	83 8f 6c    	xor.w     w9, w3, [w15]
+     f8a:	06 00 3b    	bra       NN, 0xf98 <comparemag>
+     f8c:	04 05 65    	and.w     w10, w4, w10
+     f8e:	0a 00 a7    	btsc.w    w10, #0x0
+     f90:	08 00 37    	bra       0xfa2 <returnEqual>
+     f92:	09 f0 a6    	btss.w    w9, #0xf
+     f94:	10 00 20    	mov.w     #0x1, w0
+     f96:	08 00 37    	bra       0xfa8 <exit>
+
+00000f98 <comparemag>:
+     f98:	82 0f 54    	sub.w     w8, w2, [w15]
+     f9a:	83 8f 5c    	subb.w    w9, w3, [w15]
+     f9c:	03 00 39    	bra       NC, 0xfa4 <adjust>
+     f9e:	10 00 20    	mov.w     #0x1, w0
+     fa0:	01 00 3e    	bra       GTU, 0xfa4 <adjust>
+
+00000fa2 <returnEqual>:
+     fa2:	00 00 20    	mov.w     #0x0, w0
+
+00000fa4 <adjust>:
+     fa4:	09 f0 a7    	btsc.w    w9, #0xf
+     fa6:	00 00 ea    	neg.w     w0, w0
+
+00000fa8 <exit>:
+     fa8:	4f 05 be    	mov.d     [--w15], w10
+     faa:	4f 04 be    	mov.d     [--w15], w8
+     fac:	00 00 e0    	cp0.w     w0
+     fae:	00 00 06    	return    
+
+00000fb0 <_T1_program>:
+     fb0:	00 00 eb    	clr.w     w0
+     fb2:	20 08 88    	mov.w     w0, 0x104
+
+00000fb4 <.LM3>:
+     fb4:	00 08 88    	mov.w     w0, 0x100
+
+00000fb6 <.LM4>:
+     fb6:	00 c4 29    	mov.w     #0x9c40, w0
+     fb8:	10 08 88    	mov.w     w0, 0x102
+
+00000fba <.LM5>:
+     fba:	a5 c0 bf    	mov.b     0xa5, WREG
+     fbc:	f1 c8 b3    	mov.b     #0x8f, w1
+     fbe:	01 40 60    	and.b     w0, w1, w0
+     fc0:	00 45 b3    	ior.b     #0x50, w0
+     fc2:	a5 e0 b7    	mov.b     WREG, 0xa5
+
+00000fc4 <.LM6>:
+     fc4:	84 60 a9    	bclr.b    0x84, #0x3
+
+00000fc6 <.LM7>:
+     fc6:	94 60 a8    	bset.b    0x94, #0x3
+
+00000fc8 <.LM8>:
+     fc8:	05 e1 a8    	bset.b    0x105, #0x7
+
+00000fca <.LM9>:
+     fca:	00 00 06    	return    
+
+00000fcc <_T1_clear>:
+     fcc:	84 60 a9    	bclr.b    0x84, #0x3
+
+00000fce <.LM12>:
+     fce:	00 00 06    	return    
+
+00000fd0 <_ISR2__T1Interrupt>:
+     fd0:	fd ff 07    	rcall     0xfcc <_T1_clear>
+
+00000fd2 <.LM15>:
+     fd2:	94 28 ec    	inc.w     0x894
+
+00000fd4 <.LM16>:
+     fd4:	00 00 eb    	clr.w     w0
+     fd6:	d3 02 37    	bra       0x157e <_EE_alarm_CounterTick>
+
+00000fd8 <_Led_config>:
+     fd8:	cb c2 a9    	bclr.b    0x2cb, #0x6
+
+00000fda <.LM20>:
+     fda:	c7 c2 a9    	bclr.b    0x2c7, #0x6
+
+00000fdc <.LM21>:
+     fdc:	00 00 06    	return    
+
+00000fde <_Signals_config>:
+     fde:	cb 42 a9    	bclr.b    0x2cb, #0x2
+
+00000fe0 <.LM24>:
+     fe0:	c7 42 a9    	bclr.b    0x2c7, #0x2
+
+00000fe2 <.LM25>:
+     fe2:	00 00 06    	return    
+
+00000fe4 <_ADC1_config>:
+     fe4:	c4 e2 a9    	bclr.b    0x2c4, #0x7
+
+00000fe6 <.LM28>:
+     fe6:	c0 e2 a8    	bset.b    0x2c0, #0x7
+
+00000fe8 <.LM29>:
+     fe8:	c4 c2 a9    	bclr.b    0x2c4, #0x6
+
+00000fea <.LM30>:
+     fea:	c0 c2 a8    	bset.b    0x2c0, #0x6
+
+00000fec <.LM31>:
+     fec:	00 80 eb    	setm.w    w0
+     fee:	60 19 88    	mov.w     w0, 0x32c
+
+00000ff0 <.LM32>:
+     ff0:	50 19 88    	mov.w     w0, 0x32a
+
+00000ff2 <.LM33>:
+     ff2:	2a e3 a9    	bclr.b    0x32a, #0x7
+
+00000ff4 <.LM34>:
+     ff4:	2a c3 a9    	bclr.b    0x32a, #0x6
+
+00000ff6 <.LM35>:
+     ff6:	23 c3 bf    	mov.b     0x323, WREG
+     ff8:	7f 40 60    	and.b     w0, #0x1f, w0
+     ffa:	23 e3 b7    	mov.b     WREG, 0x323
+
+00000ffc <.LM36>:
+     ffc:	f0 c3 b3    	mov.b     #0x3f, w0
+     ffe:	24 e3 b7    	mov.b     WREG, 0x324
+
+00001000 <.LM37>:
+    1000:	23 c3 bf    	mov.b     0x323, WREG
+    1002:	c2 cf b3    	mov.b     #0xfc, w2
+    1004:	02 40 60    	and.b     w0, w2, w0
+    1006:	23 e3 b7    	mov.b     WREG, 0x323
+
+00001008 <.LM38>:
+    1008:	01 ce b3    	mov.b     #0xe0, w1
+    100a:	01 40 78    	mov.b     w1, w0
+    100c:	20 63 b7    	ior.b     0x320
+
+0000100e <.LM39>:
+    100e:	f0 c1 b3    	mov.b     #0x1f, w0
+    1010:	25 63 b7    	ior.b     0x325
+
+00001012 <.LM40>:
+    1012:	21 c3 bf    	mov.b     0x321, WREG
+    1014:	02 40 60    	and.b     w0, w2, w0
+    1016:	21 e3 b7    	mov.b     WREG, 0x321
+
+00001018 <.LM41>:
+    1018:	21 43 a8    	bset.b    0x321, #0x2
+
+0000101a <.LM42>:
+    101a:	20 43 a9    	bclr.b    0x320, #0x2
+
+0000101c <.LM43>:
+    101c:	28 c3 bf    	mov.b     0x328, WREG
+    101e:	01 40 60    	and.b     w0, w1, w0
+    1020:	70 41 b3    	ior.b     #0x17, w0
+    1022:	28 e3 b7    	mov.b     WREG, 0x328
+
+00001024 <.LM44>:
+    1024:	28 c3 bf    	mov.b     0x328, WREG
+    1026:	01 40 60    	and.b     w0, w1, w0
+    1028:	60 41 b3    	ior.b     #0x16, w0
+    102a:	28 e3 b7    	mov.b     WREG, 0x328
+
+0000102c <.LM45>:
+    102c:	28 e3 a9    	bclr.b    0x328, #0x7
+
+0000102e <.LM46>:
+    102e:	21 e3 a8    	bset.b    0x321, #0x7
+
+00001030 <.LM47>:
+    1030:	00 00 06    	return    
+
+00001032 <_PWM_config>:
+    1032:	c0 c1 bf    	mov.b     0x1c0, WREG
+    1034:	c1 cf b3    	mov.b     #0xfc, w1
+    1036:	01 40 60    	and.b     w0, w1, w0
+    1038:	c0 e1 b7    	mov.b     WREG, 0x1c0
+
+0000103a <.LM50>:
+    103a:	f0 ff 23    	mov.w     #0x3fff, w0
+    103c:	20 0e 88    	mov.w     w0, 0x1c4
+
+0000103e <.LM51>:
+    103e:	10 11 20    	mov.w     #0x111, w0
+    1040:	40 0e 88    	mov.w     w0, 0x1c8
+
+00001042 <.LM52>:
+    1042:	ca 41 a9    	bclr.b    0x1ca, #0x2
+
+00001044 <.LM53>:
+    1044:	ca 01 a9    	bclr.b    0x1ca, #0x0
+
+00001046 <.LM54>:
+    1046:	00 f0 2f    	mov.w     #0xff00, w0
+    1048:	a0 0e 88    	mov.w     w0, 0x1d4
+
+0000104a <.LM55>:
+    104a:	d6 21 ef    	clr.w     0x1d6
+
+0000104c <.LM56>:
+    104c:	c1 e1 a8    	bset.b    0x1c1, #0x7
+
+0000104e <.LM57>:
+    104e:	00 00 06    	return    
+
+00001050 <_Sys_init>:
+    1050:	45 67 a9    	bclr.b    0x745, #0x3
+
+00001052 <.LM60>:
+    1052:	44 c7 bf    	mov.b     0x744, WREG
+    1054:	01 ce b3    	mov.b     #0xe0, w1
+    1056:	01 40 60    	and.b     w0, w1, w0
+    1058:	44 e7 b7    	mov.b     WREG, 0x744
+
+0000105a <.LM61>:
+    105a:	44 c7 bf    	mov.b     0x744, WREG
+    105c:	f0 43 b2    	and.b     #0x3f, w0
+    105e:	44 e7 b7    	mov.b     WREG, 0x744
+
+00001060 <.LM62>:
+    1060:	30 3a 80    	mov.w     0x746, w0
+    1062:	01 e0 2f    	mov.w     #0xfe00, w1
+    1064:	01 00 60    	and.w     w0, w1, w0
+    1066:	e0 04 b3    	ior.w     #0x4e, w0
+    1068:	30 3a 88    	mov.w     w0, 0x746
+
+0000106a <.L30>:
+    106a:	42 c7 bf    	mov.b     0x742, WREG
+    106c:	00 58 a3    	btst.z    w0, #0x5
+    106e:	fd ff 32    	bra       Z, 0x106a <.L30>
+
+00001070 <.LM64>:
+    1070:	9f ff 07    	rcall     0xfb0 <_T1_program>
+
+00001072 <.LBB2>:
+    1072:	3a 21 ef    	clr.w     0x13a
+
+00001074 <.LM66>:
+    1074:	3a 61 a8    	bset.b    0x13a, #0x3
+
+00001076 <.LM67>:
+    1076:	30 21 ef    	clr.w     0x130
+
+00001078 <.LM68>:
+    1078:	34 21 ef    	clr.w     0x134
+
+0000107a <.LM69>:
+    107a:	36 a1 ef    	setm.w    0x136
+
+0000107c <.LM70>:
+    107c:	38 a1 ef    	setm.w    0x138
+
+0000107e <.LM71>:
+    107e:	8a 80 a9    	bclr.b    0x8a, #0x4
+
+00001080 <.LM72>:
+    1080:	9a 80 a9    	bclr.b    0x9a, #0x4
+
+00001082 <.LM73>:
+    1082:	3b e1 a8    	bset.b    0x13b, #0x7
+
+00001084 <.LBE2>:
+    1084:	af ff 07    	rcall     0xfe4 <_ADC1_config>
+
+00001086 <.LM75>:
+    1086:	d5 ff 07    	rcall     0x1032 <_PWM_config>
+
+00001088 <.LM76>:
+    1088:	a7 ff 07    	rcall     0xfd8 <_Led_config>
+
+0000108a <.LM77>:
+    108a:	a9 ff 07    	rcall     0xfde <_Signals_config>
+
+0000108c <.LM78>:
+    108c:	77 00 37    	bra       0x117c <_UART1_DMA_config>
+
+0000108e <__T1Interrupt>:
+    108e:	36 00 f8    	push      0x36
+    1090:	80 9f be    	mov.d     w0, [w15++]
+    1092:	82 9f be    	mov.d     w2, [w15++]
+    1094:	84 9f be    	mov.d     w4, [w15++]
+    1096:	86 9f be    	mov.d     w6, [w15++]
+    1098:	34 00 f8    	push      0x34
+    109a:	00 00 20    	mov.w     #0x0, w0
+    109c:	a0 01 88    	mov.w     w0, 0x34
+
+0000109e <.LBB3>:
+    109e:	ff 3f fc    	disi      #0x3fff
+
+000010a0 <.LBE5>:
+    10a0:	90 28 ec    	inc.w     0x890
+
+000010a2 <.LBB6>:
+    10a2:	00 00 fc    	disi      #0x0
+
+000010a4 <.LBE3>:
+    10a4:	95 ff 07    	rcall     0xfd0 <_ISR2__T1Interrupt>
+
+000010a6 <.LBB7>:
+    10a6:	ff 3f fc    	disi      #0x3fff
+
+000010a8 <.LBE9>:
+    10a8:	90 08 ed    	dec.w     0x890, WREG
+    10aa:	80 44 88    	mov.w     w0, 0x890
+
+000010ac <.LM87>:
+    10ac:	07 00 32    	bra       Z, 0x10bc <.L44>
+
+000010ae <.LBE7>:
+    10ae:	34 00 f9    	pop       0x34
+    10b0:	4f 03 be    	mov.d     [--w15], w6
+    10b2:	4f 02 be    	mov.d     [--w15], w4
+    10b4:	4f 01 be    	mov.d     [--w15], w2
+    10b6:	4f 00 be    	mov.d     [--w15], w0
+    10b8:	36 00 f9    	pop       0x36
+    10ba:	00 40 06    	retfie    
+
+000010bc <.L44>:
+    10bc:	f3 02 07    	rcall     0x16a4 <_EE_IRQ_end_instance>
+
+000010be <.LM90>:
+    10be:	90 44 80    	mov.w     0x892, w0
+    10c0:	00 00 e0    	cp0.w     w0
+    10c2:	04 00 32    	bra       Z, 0x10cc <.L40>
+
+000010c4 <.LM91>:
+    10c4:	42 e0 a9    	bclr.b    0x42, #0x7
+
+000010c6 <.LM92>:
+    10c6:	42 c0 a9    	bclr.b    0x42, #0x6
+
+000010c8 <.LM93>:
+    10c8:	42 a0 a9    	bclr.b    0x42, #0x5
+
+000010ca <.LM94>:
+    10ca:	12 02 07    	rcall     0x14f0 <_EE_pic30_hal_ready2stacked>
+
+000010cc <.L40>:
+    10cc:	42 e0 a8    	bset.b    0x42, #0x7
+
+000010ce <.LM96>:
+    10ce:	42 c0 a8    	bset.b    0x42, #0x6
+
+000010d0 <.LM97>:
+    10d0:	42 a0 a9    	bclr.b    0x42, #0x5
+
+000010d2 <.LBB12>:
+    10d2:	00 00 fc    	disi      #0x0
+
+000010d4 <.LBE12>:
+    10d4:	34 00 f9    	pop       0x34
+    10d6:	4f 03 be    	mov.d     [--w15], w6
+    10d8:	4f 02 be    	mov.d     [--w15], w4
+    10da:	4f 01 be    	mov.d     [--w15], w2
+    10dc:	4f 00 be    	mov.d     [--w15], w0
+    10de:	36 00 f9    	pop       0x36
+    10e0:	00 40 06    	retfie    
+    10e2:	ec ff 37    	bra       0x10bc <.L44>
+
+000010e4 <_cfgUart1>:
+    10e4:	20 02 a9    	bclr.b    0x220, #0x0
+
+000010e6 <.LM3>:
+    10e6:	20 c2 bf    	mov.b     0x220, WREG
+    10e8:	91 cf b3    	mov.b     #0xf9, w1
+    10ea:	01 40 60    	and.b     w0, w1, w0
+    10ec:	20 e2 b7    	mov.b     WREG, 0x220
+
+000010ee <.LM4>:
+    10ee:	20 a2 a9    	bclr.b    0x220, #0x5
+
+000010f0 <.LM5>:
+    10f0:	20 62 a9    	bclr.b    0x220, #0x3
+
+000010f2 <.LM6>:
+    10f2:	50 01 20    	mov.w     #0x15, w0
+    10f4:	40 11 88    	mov.w     w0, 0x228
+
+000010f6 <.LM7>:
+    10f6:	23 a2 a8    	bset.b    0x223, #0x5
+
+000010f8 <.LM8>:
+    10f8:	22 c2 bf    	mov.b     0x222, WREG
+    10fa:	f0 43 b2    	and.b     #0x3f, w0
+    10fc:	00 64 a0    	bset.b    w0, #0x6
+    10fe:	22 e2 b7    	mov.b     WREG, 0x222
+
+00001100 <.LM9>:
+    1100:	21 e2 a8    	bset.b    0x221, #0x7
+
+00001102 <.LM10>:
+    1102:	23 42 a8    	bset.b    0x223, #0x2
+
+00001104 <.LM11>:
+    1104:	9c 20 a9    	bclr.b    0x9c, #0x1
+
+00001106 <.LM12>:
+    1106:	00 00 06    	return    
+
+00001108 <_cfgDma4UartTx>:
+    1108:	c0 00 20    	mov.w     #0xc, w0
+    110a:	90 1d 88    	mov.w     w0, 0x3b2
+
+0000110c <.LM15>:
+    110c:	40 22 20    	mov.w     #0x224, w0
+    110e:	c0 1d 88    	mov.w     w0, 0x3b8
+
+00001110 <.LM16>:
+    1110:	b0 c3 bf    	mov.b     0x3b0, WREG
+    1112:	f1 cc b3    	mov.b     #0xcf, w1
+    1114:	01 40 60    	and.b     w0, w1, w0
+    1116:	b0 e3 b7    	mov.b     WREG, 0x3b0
+
+00001118 <.LM17>:
+    1118:	b0 c3 bf    	mov.b     0x3b0, WREG
+    111a:	c1 cf b3    	mov.b     #0xfc, w1
+    111c:	01 40 60    	and.b     w0, w1, w0
+    111e:	00 04 a0    	bset.b    w0, #0x0
+    1120:	b0 e3 b7    	mov.b     WREG, 0x3b0
+
+00001122 <.LM18>:
+    1122:	b1 a3 a8    	bset.b    0x3b1, #0x5
+
+00001124 <.LM19>:
+    1124:	b1 c3 a8    	bset.b    0x3b1, #0x6
+
+00001126 <.LM20>:
+    1126:	60 01 20    	mov.w     #0x16, w0
+    1128:	d0 1d 88    	mov.w     w0, 0x3ba
+
+0000112a <.LM21>:
+    112a:	80 7e 20    	mov.w     #0x7e8, w0
+    112c:	a0 1d 88    	mov.w     w0, 0x3b4
+
+0000112e <.LM22>:
+    112e:	89 c0 a9    	bclr.b    0x89, #0x6
+
+00001130 <.LM23>:
+    1130:	99 c0 a9    	bclr.b    0x99, #0x6
+
+00001132 <.LM24>:
+    1132:	00 00 06    	return    
+
+00001134 <_cfgDma5UartRx>:
+    1134:	b0 00 20    	mov.w     #0xb, w0
+    1136:	f0 1d 88    	mov.w     w0, 0x3be
+
+00001138 <.LM27>:
+    1138:	60 22 20    	mov.w     #0x226, w0
+    113a:	20 1e 88    	mov.w     w0, 0x3c4
+
+0000113c <.LM28>:
+    113c:	bc c3 bf    	mov.b     0x3bc, WREG
+    113e:	f1 cc b3    	mov.b     #0xcf, w1
+    1140:	01 40 60    	and.b     w0, w1, w0
+    1142:	bc e3 b7    	mov.b     WREG, 0x3bc
+
+00001144 <.LM29>:
+    1144:	bc c3 bf    	mov.b     0x3bc, WREG
+    1146:	c1 cf b3    	mov.b     #0xfc, w1
+    1148:	01 40 60    	and.b     w0, w1, w0
+    114a:	bc e3 b7    	mov.b     WREG, 0x3bc
+
+0000114c <.LM30>:
+    114c:	bd a3 a9    	bclr.b    0x3bd, #0x5
+
+0000114e <.LM31>:
+    114e:	bd c3 a8    	bset.b    0x3bd, #0x6
+
+00001150 <.LM32>:
+    1150:	70 00 20    	mov.w     #0x7, w0
+    1152:	30 1e 88    	mov.w     w0, 0x3c6
+
+00001154 <.LM33>:
+    1154:	00 7e 20    	mov.w     #0x7e0, w0
+    1156:	00 1e 88    	mov.w     w0, 0x3c0
+
+00001158 <.LM34>:
+    1158:	8b a0 a9    	bclr.b    0x8b, #0x5
+
+0000115a <.LM35>:
+    115a:	9b a0 a8    	bset.b    0x9b, #0x5
+
+0000115c <.LM36>:
+    115c:	bd e3 a8    	bset.b    0x3bd, #0x7
+
+0000115e <.LM37>:
+    115e:	00 00 06    	return    
+
+00001160 <_ISR2__DMA4Interrupt>:
+    1160:	89 c0 a9    	bclr.b    0x89, #0x6
+
+00001162 <.LM40>:
+    1162:	00 00 06    	return    
+
+00001164 <_ISR2__DMA5Interrupt>:
+    1164:	00 ff 83    	mov.w     0x7fe0, w0
+    1166:	11 ff 83    	mov.w     0x7fe2, w1
+    1168:	30 44 88    	mov.w     w0, 0x886
+    116a:	41 44 88    	mov.w     w1, 0x888
+
+0000116c <.LM43>:
+    116c:	20 ff 83    	mov.w     0x7fe4, w0
+    116e:	31 ff 83    	mov.w     0x7fe6, w1
+    1170:	50 44 88    	mov.w     w0, 0x88a
+    1172:	61 44 88    	mov.w     w1, 0x88c
+
+00001174 <.LM44>:
+    1174:	8b a0 a9    	bclr.b    0x8b, #0x5
+
+00001176 <.LM45>:
+    1176:	00 00 06    	return    
+
+00001178 <_ISR2__U1ErrInterrupt>:
+    1178:	8c 20 a9    	bclr.b    0x8c, #0x1
+
+0000117a <.LM48>:
+    117a:	00 00 06    	return    
+
+0000117c <_UART1_DMA_config>:
+    117c:	c5 ff 07    	rcall     0x1108 <_cfgDma4UartTx>
+
+0000117e <.LM51>:
+    117e:	da ff 07    	rcall     0x1134 <_cfgDma5UartRx>
+
+00001180 <.LM52>:
+    1180:	b1 ff 37    	bra       0x10e4 <_cfgUart1>
+
+00001182 <__U1ErrInterrupt>:
+    1182:	36 00 f8    	push      0x36
+    1184:	80 9f be    	mov.d     w0, [w15++]
+    1186:	82 9f be    	mov.d     w2, [w15++]
+    1188:	84 9f be    	mov.d     w4, [w15++]
+    118a:	86 9f be    	mov.d     w6, [w15++]
+    118c:	34 00 f8    	push      0x34
+    118e:	00 00 20    	mov.w     #0x0, w0
+    1190:	a0 01 88    	mov.w     w0, 0x34
+
+00001192 <.LBB2>:
+    1192:	ff 3f fc    	disi      #0x3fff
+
+00001194 <.LBE4>:
+    1194:	90 28 ec    	inc.w     0x890
+
+00001196 <.LBB5>:
+    1196:	00 00 fc    	disi      #0x0
+
+00001198 <.LBE2>:
+    1198:	ef ff 07    	rcall     0x1178 <_ISR2__U1ErrInterrupt>
+
+0000119a <.LBB6>:
+    119a:	ff 3f fc    	disi      #0x3fff
+
+0000119c <.LBE8>:
+    119c:	90 08 ed    	dec.w     0x890, WREG
+    119e:	80 44 88    	mov.w     w0, 0x890
+
+000011a0 <.LM61>:
+    11a0:	07 00 32    	bra       Z, 0x11b0 <.L36>
+
+000011a2 <.LBE6>:
+    11a2:	34 00 f9    	pop       0x34
+    11a4:	4f 03 be    	mov.d     [--w15], w6
+    11a6:	4f 02 be    	mov.d     [--w15], w4
+    11a8:	4f 01 be    	mov.d     [--w15], w2
+    11aa:	4f 00 be    	mov.d     [--w15], w0
+    11ac:	36 00 f9    	pop       0x36
+    11ae:	00 40 06    	retfie    
+
+000011b0 <.L36>:
+    11b0:	79 02 07    	rcall     0x16a4 <_EE_IRQ_end_instance>
+
+000011b2 <.LM64>:
+    11b2:	90 44 80    	mov.w     0x892, w0
+    11b4:	00 00 e0    	cp0.w     w0
+    11b6:	04 00 32    	bra       Z, 0x11c0 <.L32>
+
+000011b8 <.LM65>:
+    11b8:	42 e0 a9    	bclr.b    0x42, #0x7
+
+000011ba <.LM66>:
+    11ba:	42 c0 a9    	bclr.b    0x42, #0x6
+
+000011bc <.LM67>:
+    11bc:	42 a0 a9    	bclr.b    0x42, #0x5
+
+000011be <.LM68>:
+    11be:	98 01 07    	rcall     0x14f0 <_EE_pic30_hal_ready2stacked>
+
+000011c0 <.L32>:
+    11c0:	42 e0 a8    	bset.b    0x42, #0x7
+
+000011c2 <.LM70>:
+    11c2:	42 c0 a8    	bset.b    0x42, #0x6
+
+000011c4 <.LM71>:
+    11c4:	42 a0 a9    	bclr.b    0x42, #0x5
+
+000011c6 <.LBB11>:
+    11c6:	00 00 fc    	disi      #0x0
+
+000011c8 <.LBE11>:
+    11c8:	34 00 f9    	pop       0x34
+    11ca:	4f 03 be    	mov.d     [--w15], w6
+    11cc:	4f 02 be    	mov.d     [--w15], w4
+    11ce:	4f 01 be    	mov.d     [--w15], w2
+    11d0:	4f 00 be    	mov.d     [--w15], w0
+    11d2:	36 00 f9    	pop       0x36
+    11d4:	00 40 06    	retfie    
+    11d6:	ec ff 37    	bra       0x11b0 <.L36>
+
+000011d8 <__DMA4Interrupt>:
+    11d8:	36 00 f8    	push      0x36
+    11da:	80 9f be    	mov.d     w0, [w15++]
+    11dc:	82 9f be    	mov.d     w2, [w15++]
+    11de:	84 9f be    	mov.d     w4, [w15++]
+    11e0:	86 9f be    	mov.d     w6, [w15++]
+    11e2:	34 00 f8    	push      0x34
+    11e4:	00 00 20    	mov.w     #0x0, w0
+    11e6:	a0 01 88    	mov.w     w0, 0x34
+
+000011e8 <.LBB12>:
+    11e8:	ff 3f fc    	disi      #0x3fff
+
+000011ea <.LBE14>:
+    11ea:	90 28 ec    	inc.w     0x890
+
+000011ec <.LBB15>:
+    11ec:	00 00 fc    	disi      #0x0
+
+000011ee <.LBE12>:
+    11ee:	b8 ff 07    	rcall     0x1160 <_ISR2__DMA4Interrupt>
+
+000011f0 <.LBB16>:
+    11f0:	ff 3f fc    	disi      #0x3fff
+
+000011f2 <.LBE18>:
+    11f2:	90 08 ed    	dec.w     0x890, WREG
+    11f4:	80 44 88    	mov.w     w0, 0x890
+
+000011f6 <.LM81>:
+    11f6:	07 00 32    	bra       Z, 0x1206 <.L46>
+
+000011f8 <.LBE16>:
+    11f8:	34 00 f9    	pop       0x34
+    11fa:	4f 03 be    	mov.d     [--w15], w6
+    11fc:	4f 02 be    	mov.d     [--w15], w4
+    11fe:	4f 01 be    	mov.d     [--w15], w2
+    1200:	4f 00 be    	mov.d     [--w15], w0
+    1202:	36 00 f9    	pop       0x36
+    1204:	00 40 06    	retfie    
+
+00001206 <.L46>:
+    1206:	4e 02 07    	rcall     0x16a4 <_EE_IRQ_end_instance>
+
+00001208 <.LM84>:
+    1208:	90 44 80    	mov.w     0x892, w0
+    120a:	00 00 e0    	cp0.w     w0
+    120c:	04 00 32    	bra       Z, 0x1216 <.L42>
+
+0000120e <.LM85>:
+    120e:	42 e0 a9    	bclr.b    0x42, #0x7
+
+00001210 <.LM86>:
+    1210:	42 c0 a9    	bclr.b    0x42, #0x6
+
+00001212 <.LM87>:
+    1212:	42 a0 a9    	bclr.b    0x42, #0x5
+
+00001214 <.LM88>:
+    1214:	6d 01 07    	rcall     0x14f0 <_EE_pic30_hal_ready2stacked>
+
+00001216 <.L42>:
+    1216:	42 e0 a8    	bset.b    0x42, #0x7
+
+00001218 <.LM90>:
+    1218:	42 c0 a8    	bset.b    0x42, #0x6
+
+0000121a <.LM91>:
+    121a:	42 a0 a9    	bclr.b    0x42, #0x5
+
+0000121c <.LBB21>:
+    121c:	00 00 fc    	disi      #0x0
+
+0000121e <.LBE21>:
+    121e:	34 00 f9    	pop       0x34
+    1220:	4f 03 be    	mov.d     [--w15], w6
+    1222:	4f 02 be    	mov.d     [--w15], w4
+    1224:	4f 01 be    	mov.d     [--w15], w2
+    1226:	4f 00 be    	mov.d     [--w15], w0
+    1228:	36 00 f9    	pop       0x36
+    122a:	00 40 06    	retfie    
+    122c:	ec ff 37    	bra       0x1206 <.L46>
+
+0000122e <__DMA5Interrupt>:
+    122e:	36 00 f8    	push      0x36
+    1230:	80 9f be    	mov.d     w0, [w15++]
+    1232:	82 9f be    	mov.d     w2, [w15++]
+    1234:	84 9f be    	mov.d     w4, [w15++]
+    1236:	86 9f be    	mov.d     w6, [w15++]
+    1238:	34 00 f8    	push      0x34
+    123a:	00 00 20    	mov.w     #0x0, w0
+    123c:	a0 01 88    	mov.w     w0, 0x34
+
+0000123e <.LBB22>:
+    123e:	ff 3f fc    	disi      #0x3fff
+
+00001240 <.LBE24>:
+    1240:	90 28 ec    	inc.w     0x890
+
+00001242 <.LBB25>:
+    1242:	00 00 fc    	disi      #0x0
+
+00001244 <.LBE22>:
+    1244:	8f ff 07    	rcall     0x1164 <_ISR2__DMA5Interrupt>
+
+00001246 <.LBB26>:
+    1246:	ff 3f fc    	disi      #0x3fff
+
+00001248 <.LBE28>:
+    1248:	90 08 ed    	dec.w     0x890, WREG
+    124a:	80 44 88    	mov.w     w0, 0x890
+
+0000124c <.LM101>:
+    124c:	07 00 32    	bra       Z, 0x125c <.L56>
+
+0000124e <.LBE26>:
+    124e:	34 00 f9    	pop       0x34
+    1250:	4f 03 be    	mov.d     [--w15], w6
+    1252:	4f 02 be    	mov.d     [--w15], w4
+    1254:	4f 01 be    	mov.d     [--w15], w2
+    1256:	4f 00 be    	mov.d     [--w15], w0
+    1258:	36 00 f9    	pop       0x36
+    125a:	00 40 06    	retfie    
+
+0000125c <.L56>:
+    125c:	23 02 07    	rcall     0x16a4 <_EE_IRQ_end_instance>
+
+0000125e <.LM104>:
+    125e:	90 44 80    	mov.w     0x892, w0
+    1260:	00 00 e0    	cp0.w     w0
+    1262:	04 00 32    	bra       Z, 0x126c <.L52>
+
+00001264 <.LM105>:
+    1264:	42 e0 a9    	bclr.b    0x42, #0x7
+
+00001266 <.LM106>:
+    1266:	42 c0 a9    	bclr.b    0x42, #0x6
+
+00001268 <.LM107>:
+    1268:	42 a0 a9    	bclr.b    0x42, #0x5
+
+0000126a <.LM108>:
+    126a:	42 01 07    	rcall     0x14f0 <_EE_pic30_hal_ready2stacked>
+
+0000126c <.L52>:
+    126c:	42 e0 a8    	bset.b    0x42, #0x7
+
+0000126e <.LM110>:
+    126e:	42 c0 a8    	bset.b    0x42, #0x6
+
+00001270 <.LM111>:
+    1270:	42 a0 a9    	bclr.b    0x42, #0x5
+
+00001272 <.LBB31>:
+    1272:	00 00 fc    	disi      #0x0
+
+00001274 <.LBE31>:
+    1274:	34 00 f9    	pop       0x34
+    1276:	4f 03 be    	mov.d     [--w15], w6
+    1278:	4f 02 be    	mov.d     [--w15], w4
+    127a:	4f 01 be    	mov.d     [--w15], w2
+    127c:	4f 00 be    	mov.d     [--w15], w0
+    127e:	36 00 f9    	pop       0x36
+    1280:	00 40 06    	retfie    
+    1282:	ec ff 37    	bra       0x125c <.L56>
+
+00001284 <_Read_State>:
+    1284:	04 00 fa    	lnk       #0x4
+    1286:	88 1f 78    	mov.w     w8, [w15++]
+    1288:	8a 9f be    	mov.d     w10, [w15++]
+    128a:	8c 9f be    	mov.d     w12, [w15++]
+
+0000128c <.LM2>:
+    128c:	60 01 20    	mov.w     #0x16, w0
+    128e:	40 19 88    	mov.w     w0, 0x328
+
+00001290 <.LM3>:
+    1290:	20 23 a8    	bset.b    0x320, #0x1
+
+00001292 <.L2>:
+    1292:	85 c0 bf    	mov.b     0x85, WREG
+    1294:	00 58 a3    	btst.z    w0, #0x5
+    1296:	fd ff 32    	bra       Z, 0x1292 <.L2>
+
+00001298 <.LM5>:
+    1298:	85 a0 a9    	bclr.b    0x85, #0x5
+
+0000129a <.LM6>:
+    129a:	08 18 80    	mov.w     0x300, w8
+    129c:	7a 42 80    	mov.w     0x84e, w10
+    129e:	8b 42 80    	mov.w     0x850, w11
+    12a0:	02 00 20    	mov.w     #0x0, w2
+    12a2:	03 f0 2b    	mov.w     #0xbf00, w3
+    12a4:	0a 00 be    	mov.d     w10, w0
+    12a6:	35 fe 07    	rcall     0xf12 <___mulsf3>
+    12a8:	00 06 be    	mov.d     w0, w12
+    12aa:	f0 43 80    	mov.w     0x87e, w0
+    12ac:	01 44 80    	mov.w     0x880, w1
+    12ae:	90 bf 9f    	mov.w     w0, [w15-14]
+    12b0:	a1 bf 9f    	mov.w     w1, [w15-12]
+    12b2:	61 40 b9    	mul.su    w8, #0x1, w0
+    12b4:	b0 fd 07    	rcall     0xe16 <___floatsisf>
+    12b6:	08 00 e0    	cp0.w     w8
+    12b8:	42 00 35    	bra       LT, 0x133e <.L14>
+    12ba:	0a 01 be    	mov.d     w10, w2
+    12bc:	2a fe 07    	rcall     0xf12 <___mulsf3>
+    12be:	02 00 20    	mov.w     #0x0, w2
+    12c0:	03 98 23    	mov.w     #0x3980, w3
+    12c2:	27 fe 07    	rcall     0xf12 <___mulsf3>
+    12c4:	0c 01 be    	mov.d     w12, w2
+    12c6:	e9 fc 07    	rcall     0xc9a <___addsf3>
+    12c8:	1f b9 97    	mov.w     [w15-14], w2
+    12ca:	af b9 97    	mov.w     [w15-12], w3
+    12cc:	e5 fc 07    	rcall     0xc98 <___subsf3>
+    12ce:	90 43 88    	mov.w     w0, 0x872
+    12d0:	a1 43 88    	mov.w     w1, 0x874
+
+000012d2 <.LM7>:
+    12d2:	70 01 20    	mov.w     #0x17, w0
+    12d4:	40 19 88    	mov.w     w0, 0x328
+
+000012d6 <.LM8>:
+    12d6:	20 23 a8    	bset.b    0x320, #0x1
+
+000012d8 <.L5>:
+    12d8:	85 c0 bf    	mov.b     0x85, WREG
+    12da:	00 58 a3    	btst.z    w0, #0x5
+    12dc:	fd ff 32    	bra       Z, 0x12d8 <.L5>
+
+000012de <.LM10>:
+    12de:	85 a0 a9    	bclr.b    0x85, #0x5
+
+000012e0 <.LM11>:
+    12e0:	08 18 80    	mov.w     0x300, w8
+    12e2:	61 40 b9    	mul.su    w8, #0x1, w0
+    12e4:	98 fd 07    	rcall     0xe16 <___floatsisf>
+    12e6:	08 00 e0    	cp0.w     w8
+    12e8:	13 00 35    	bra       LT, 0x1310 <.L15>
+    12ea:	00 01 be    	mov.d     w0, w2
+    12ec:	0a 00 be    	mov.d     w10, w0
+    12ee:	11 fe 07    	rcall     0xf12 <___mulsf3>
+    12f0:	02 00 20    	mov.w     #0x0, w2
+    12f2:	03 98 23    	mov.w     #0x3980, w3
+    12f4:	0e fe 07    	rcall     0xf12 <___mulsf3>
+    12f6:	00 01 be    	mov.d     w0, w2
+    12f8:	0c 00 be    	mov.d     w12, w0
+    12fa:	cf fc 07    	rcall     0xc9a <___addsf3>
+    12fc:	1f b9 97    	mov.w     [w15-14], w2
+    12fe:	af b9 97    	mov.w     [w15-12], w3
+    1300:	cb fc 07    	rcall     0xc98 <___subsf3>
+    1302:	b0 43 88    	mov.w     w0, 0x876
+    1304:	c1 43 88    	mov.w     w1, 0x878
+
+00001306 <.LM12>:
+    1306:	4f 06 be    	mov.d     [--w15], w12
+    1308:	4f 05 be    	mov.d     [--w15], w10
+    130a:	4f 04 78    	mov.w     [--w15], w8
+    130c:	00 80 fa    	ulnk      
+    130e:	00 00 06    	return    
+
+00001310 <.L15>:
+    1310:	02 00 20    	mov.w     #0x0, w2
+    1312:	03 78 24    	mov.w     #0x4780, w3
+    1314:	c2 fc 07    	rcall     0xc9a <___addsf3>
+    1316:	00 01 be    	mov.d     w0, w2
+    1318:	0a 00 be    	mov.d     w10, w0
+    131a:	fb fd 07    	rcall     0xf12 <___mulsf3>
+    131c:	02 00 20    	mov.w     #0x0, w2
+    131e:	03 98 23    	mov.w     #0x3980, w3
+    1320:	f8 fd 07    	rcall     0xf12 <___mulsf3>
+    1322:	00 01 be    	mov.d     w0, w2
+    1324:	0c 00 be    	mov.d     w12, w0
+    1326:	b9 fc 07    	rcall     0xc9a <___addsf3>
+    1328:	1f b9 97    	mov.w     [w15-14], w2
+    132a:	af b9 97    	mov.w     [w15-12], w3
+    132c:	b5 fc 07    	rcall     0xc98 <___subsf3>
+    132e:	b0 43 88    	mov.w     w0, 0x876
+    1330:	c1 43 88    	mov.w     w1, 0x878
+
+00001332 <.LM14>:
+    1332:	4f 06 be    	mov.d     [--w15], w12
+    1334:	4f 05 be    	mov.d     [--w15], w10
+    1336:	4f 04 78    	mov.w     [--w15], w8
+    1338:	00 80 fa    	ulnk      
+    133a:	00 00 06    	return    
+    133c:	e9 ff 37    	bra       0x1310 <.L15>
+
+0000133e <.L14>:
+    133e:	02 00 20    	mov.w     #0x0, w2
+    1340:	03 78 24    	mov.w     #0x4780, w3
+    1342:	ab fc 07    	rcall     0xc9a <___addsf3>
+    1344:	0a 01 be    	mov.d     w10, w2
+    1346:	e5 fd 07    	rcall     0xf12 <___mulsf3>
+    1348:	02 00 20    	mov.w     #0x0, w2
+    134a:	03 98 23    	mov.w     #0x3980, w3
+    134c:	e2 fd 07    	rcall     0xf12 <___mulsf3>
+    134e:	0c 01 be    	mov.d     w12, w2
+    1350:	a4 fc 07    	rcall     0xc9a <___addsf3>
+    1352:	1f b9 97    	mov.w     [w15-14], w2
+    1354:	af b9 97    	mov.w     [w15-12], w3
+    1356:	a0 fc 07    	rcall     0xc98 <___subsf3>
+    1358:	90 43 88    	mov.w     w0, 0x872
+    135a:	a1 43 88    	mov.w     w1, 0x874
+
+0000135c <.LM16>:
+    135c:	70 01 20    	mov.w     #0x17, w0
+    135e:	40 19 88    	mov.w     w0, 0x328
+
+00001360 <.LM17>:
+    1360:	20 23 a8    	bset.b    0x320, #0x1
+    1362:	ba ff 37    	bra       0x12d8 <.L5>
+
+00001364 <_FuncTaskSupervision>:
+    1364:	cb 42 a8    	bset.b    0x2cb, #0x2
+
+00001366 <.LM20>:
+    1366:	99 01 07    	rcall     0x169a <_EE_edf_GetTime>
+    1368:	10 44 88    	mov.w     w0, 0x882
+    136a:	21 44 88    	mov.w     w1, 0x884
+
+0000136c <.LM21>:
+    136c:	8b ff 07    	rcall     0x1284 <_Read_State>
+
+0000136e <.LM22>:
+    136e:	11 c0 b3    	mov.b     #0x1, w1
+    1370:	80 fe 27    	mov.w     #0x7fe8, w0
+    1372:	01 48 78    	mov.b     w1, [w0]
+
+00001374 <.LM23>:
+    1374:	14 44 80    	mov.w     0x882, w4
+    1376:	25 44 80    	mov.w     0x884, w5
+    1378:	48 28 de    	lsr.w     w5, #0x8, w0
+    137a:	01 00 20    	mov.w     #0x0, w1
+    137c:	92 fe 27    	mov.w     #0x7fe9, w2
+    137e:	00 49 78    	mov.b     w0, [w2]
+
+00001380 <.LM24>:
+    1380:	40 28 de    	lsr.w     w5, #0x0, w0
+    1382:	01 00 20    	mov.w     #0x0, w1
+    1384:	a2 fe 27    	mov.w     #0x7fea, w2
+    1386:	00 49 78    	mov.b     w0, [w2]
+
+00001388 <.LM25>:
+    1388:	48 29 dd    	sl.w      w5, #0x8, w2
+    138a:	48 20 de    	lsr.w     w4, #0x8, w0
+    138c:	00 00 71    	ior.w     w2, w0, w0
+    138e:	c8 28 de    	lsr.w     w5, #0x8, w1
+    1390:	b2 fe 27    	mov.w     #0x7feb, w2
+    1392:	00 49 78    	mov.b     w0, [w2]
+
+00001394 <.LM26>:
+    1394:	c0 fe 27    	mov.w     #0x7fec, w0
+    1396:	04 48 78    	mov.b     w4, [w0]
+
+00001398 <.LM27>:
+    1398:	41 43 80    	mov.w     0x868, w1
+    139a:	d0 fe 27    	mov.w     #0x7fed, w0
+    139c:	11 48 78    	mov.b     [w1], [w0]
+
+0000139e <.LM28>:
+    139e:	e0 fe 27    	mov.w     #0x7fee, w0
+    13a0:	11 41 90    	mov.b     [w1+1], w2
+    13a2:	02 48 78    	mov.b     w2, [w0]
+
+000013a4 <.LM29>:
+    13a4:	f0 fe 27    	mov.w     #0x7fef, w0
+    13a6:	21 41 90    	mov.b     [w1+2], w2
+    13a8:	02 48 78    	mov.b     w2, [w0]
+
+000013aa <.LM30>:
+    13aa:	00 ff 27    	mov.w     #0x7ff0, w0
+    13ac:	b1 40 90    	mov.b     [w1+3], w1
+    13ae:	01 48 78    	mov.b     w1, [w0]
+
+000013b0 <.LM31>:
+    13b0:	31 43 80    	mov.w     0x866, w1
+    13b2:	10 ff 27    	mov.w     #0x7ff1, w0
+    13b4:	11 48 78    	mov.b     [w1], [w0]
+
+000013b6 <.LM32>:
+    13b6:	20 ff 27    	mov.w     #0x7ff2, w0
+    13b8:	11 41 90    	mov.b     [w1+1], w2
+    13ba:	02 48 78    	mov.b     w2, [w0]
+
+000013bc <.LM33>:
+    13bc:	30 ff 27    	mov.w     #0x7ff3, w0
+    13be:	21 41 90    	mov.b     [w1+2], w2
+    13c0:	02 48 78    	mov.b     w2, [w0]
+
+000013c2 <.LM34>:
+    13c2:	40 ff 27    	mov.w     #0x7ff4, w0
+    13c4:	b1 40 90    	mov.b     [w1+3], w1
+    13c6:	01 48 78    	mov.b     w1, [w0]
+
+000013c8 <.LM35>:
+    13c8:	21 43 80    	mov.w     0x864, w1
+    13ca:	50 ff 27    	mov.w     #0x7ff5, w0
+    13cc:	11 48 78    	mov.b     [w1], [w0]
+
+000013ce <.LM36>:
+    13ce:	60 ff 27    	mov.w     #0x7ff6, w0
+    13d0:	11 41 90    	mov.b     [w1+1], w2
+    13d2:	02 48 78    	mov.b     w2, [w0]
+
+000013d4 <.LM37>:
+    13d4:	70 ff 27    	mov.w     #0x7ff7, w0
+    13d6:	21 41 90    	mov.b     [w1+2], w2
+    13d8:	02 48 78    	mov.b     w2, [w0]
+
+000013da <.LM38>:
+    13da:	80 ff 27    	mov.w     #0x7ff8, w0
+    13dc:	b1 40 90    	mov.b     [w1+3], w1
+    13de:	01 48 78    	mov.b     w1, [w0]
+
+000013e0 <.LM39>:
+    13e0:	11 43 80    	mov.w     0x862, w1
+    13e2:	90 ff 27    	mov.w     #0x7ff9, w0
+    13e4:	11 48 78    	mov.b     [w1], [w0]
+
+000013e6 <.LM40>:
+    13e6:	a0 ff 27    	mov.w     #0x7ffa, w0
+    13e8:	11 41 90    	mov.b     [w1+1], w2
+    13ea:	02 48 78    	mov.b     w2, [w0]
+
+000013ec <.LM41>:
+    13ec:	b0 ff 27    	mov.w     #0x7ffb, w0
+    13ee:	21 41 90    	mov.b     [w1+2], w2
+    13f0:	02 48 78    	mov.b     w2, [w0]
+
+000013f2 <.LM42>:
+    13f2:	c0 ff 27    	mov.w     #0x7ffc, w0
+    13f4:	b1 40 90    	mov.b     [w1+3], w1
+    13f6:	01 48 78    	mov.b     w1, [w0]
+
+000013f8 <.LM43>:
+    13f8:	b1 e3 a8    	bset.b    0x3b1, #0x7
+
+000013fa <.LM44>:
+    13fa:	b3 e3 a8    	bset.b    0x3b3, #0x7
+
+000013fc <.LM45>:
+    13fc:	cb 42 a9    	bclr.b    0x2cb, #0x2
+
+000013fe <.LM46>:
+    13fe:	00 00 06    	return    
+
+00001400 <_FuncTaskReferenceChange>:
+    1400:	02 00 20    	mov.w     #0x0, w2
+    1402:	03 f0 2b    	mov.w     #0xbf00, w3
+    1404:	90 42 80    	mov.w     0x852, w0
+    1406:	a1 42 80    	mov.w     0x854, w1
+    1408:	e7 fc 07    	rcall     0xdd8 <___eqsf2>
+    140a:	00 00 e0    	cp0.w     w0
+    140c:	06 00 3a    	bra       NZ, 0x141a <.L23>
+
+0000140e <.LM49>:
+    140e:	00 00 20    	mov.w     #0x0, w0
+    1410:	90 42 88    	mov.w     w0, 0x852
+    1412:	00 f0 23    	mov.w     #0x3f00, w0
+    1414:	a0 42 88    	mov.w     w0, 0x854
+
+00001416 <.LM50>:
+    1416:	cb c2 a8    	bset.b    0x2cb, #0x6
+    1418:	00 00 06    	return    
+
+0000141a <.L23>:
+    141a:	00 00 20    	mov.w     #0x0, w0
+    141c:	90 42 88    	mov.w     w0, 0x852
+    141e:	00 f0 2b    	mov.w     #0xbf00, w0
+    1420:	a0 42 88    	mov.w     w0, 0x854
+
+00001422 <.LM52>:
+    1422:	cb c2 a9    	bclr.b    0x2cb, #0x6
+    1424:	00 00 06    	return    
+
+00001426 <_FuncTaskController>:
+    1426:	88 9f be    	mov.d     w8, [w15++]
+    1428:	8a 9f be    	mov.d     w10, [w15++]
+    142a:	8c 9f be    	mov.d     w12, [w15++]
+
+0000142c <.LM54>:
+    142c:	2b ff 07    	rcall     0x1284 <_Read_State>
+
+0000142e <.LM55>:
+    142e:	92 43 80    	mov.w     0x872, w2
+    1430:	a3 43 80    	mov.w     0x874, w3
+    1432:	90 42 80    	mov.w     0x852, w0
+    1434:	a1 42 80    	mov.w     0x854, w1
+    1436:	30 fc 07    	rcall     0xc98 <___subsf3>
+    1438:	b2 42 80    	mov.w     0x856, w2
+    143a:	c3 42 80    	mov.w     0x858, w3
+    143c:	6a fd 07    	rcall     0xf12 <___mulsf3>
+    143e:	00 04 be    	mov.d     w0, w8
+    1440:	b2 43 80    	mov.w     0x876, w2
+    1442:	c3 43 80    	mov.w     0x878, w3
+    1444:	d0 42 80    	mov.w     0x85a, w0
+    1446:	e1 42 80    	mov.w     0x85c, w1
+    1448:	64 fd 07    	rcall     0xf12 <___mulsf3>
+    144a:	00 01 be    	mov.d     w0, w2
+    144c:	08 00 be    	mov.d     w8, w0
+    144e:	24 fc 07    	rcall     0xc98 <___subsf3>
+    1450:	00 04 be    	mov.d     w0, w8
+    1452:	d2 43 80    	mov.w     0x87a, w2
+    1454:	e3 43 80    	mov.w     0x87c, w3
+    1456:	f0 42 80    	mov.w     0x85e, w0
+    1458:	01 43 80    	mov.w     0x860, w1
+    145a:	5b fd 07    	rcall     0xf12 <___mulsf3>
+    145c:	00 01 be    	mov.d     w0, w2
+    145e:	08 00 be    	mov.d     w8, w0
+    1460:	1b fc 07    	rcall     0xc98 <___subsf3>
+    1462:	00 04 be    	mov.d     w0, w8
+    1464:	70 43 88    	mov.w     w0, 0x86e
+    1466:	81 43 88    	mov.w     w1, 0x870
+
+00001468 <.LM56>:
+    1468:	7c 42 80    	mov.w     0x84e, w12
+    146a:	8d 42 80    	mov.w     0x850, w13
+    146c:	02 00 20    	mov.w     #0x0, w2
+    146e:	03 f0 23    	mov.w     #0x3f00, w3
+    1470:	0c 00 be    	mov.d     w12, w0
+    1472:	4f fd 07    	rcall     0xf12 <___mulsf3>
+    1474:	00 05 be    	mov.d     w0, w10
+    1476:	00 01 be    	mov.d     w0, w2
+    1478:	08 00 be    	mov.d     w8, w0
+    147a:	b0 fc 07    	rcall     0xddc <___gesf2>
+    147c:	00 00 e0    	cp0.w     w0
+    147e:	02 00 34    	bra       LE, 0x1484 <.L31>
+    1480:	7a 43 88    	mov.w     w10, 0x86e
+    1482:	8b 43 88    	mov.w     w11, 0x870
+
+00001484 <.L31>:
+    1484:	02 00 20    	mov.w     #0x0, w2
+    1486:	03 f0 2b    	mov.w     #0xbf00, w3
+    1488:	0c 00 be    	mov.d     w12, w0
+    148a:	43 fd 07    	rcall     0xf12 <___mulsf3>
+    148c:	00 04 be    	mov.d     w0, w8
+    148e:	72 43 80    	mov.w     0x86e, w2
+    1490:	83 43 80    	mov.w     0x870, w3
+    1492:	a4 fc 07    	rcall     0xddc <___gesf2>
+    1494:	00 00 e0    	cp0.w     w0
+    1496:	02 00 34    	bra       LE, 0x149c <.L34>
+    1498:	78 43 88    	mov.w     w8, 0x86e
+    149a:	89 43 88    	mov.w     w9, 0x870
+
+0000149c <.L34>:
+    149c:	70 43 80    	mov.w     0x86e, w0
+    149e:	81 43 80    	mov.w     0x870, w1
+    14a0:	d0 43 88    	mov.w     w0, 0x87a
+    14a2:	e1 43 88    	mov.w     w1, 0x87c
+
+000014a4 <.LM59>:
+    14a4:	4f 06 be    	mov.d     [--w15], w12
+    14a6:	4f 05 be    	mov.d     [--w15], w10
+    14a8:	4f 04 be    	mov.d     [--w15], w8
+    14aa:	00 00 06    	return    
+
+000014ac <_FuncTaskActuator>:
+    14ac:	70 43 80    	mov.w     0x86e, w0
+    14ae:	81 43 80    	mov.w     0x870, w1
+    14b0:	50 43 88    	mov.w     w0, 0x86a
+    14b2:	61 43 88    	mov.w     w1, 0x86c
+
+000014b4 <.LM62>:
+    14b4:	72 42 80    	mov.w     0x84e, w2
+    14b6:	83 42 80    	mov.w     0x850, w3
+    14b8:	4d fc 07    	rcall     0xd54 <___divsf3>
+    14ba:	02 e0 2f    	mov.w     #0xfe00, w2
+    14bc:	f3 6f 24    	mov.w     #0x46ff, w3
+    14be:	29 fd 07    	rcall     0xf12 <___mulsf3>
+    14c0:	02 c0 2f    	mov.w     #0xfc00, w2
+    14c2:	f3 67 24    	mov.w     #0x467f, w3
+    14c4:	ea fb 07    	rcall     0xc9a <___addsf3>
+    14c6:	8c fc 07    	rcall     0xde0 <___fixunssfsi>
+    14c8:	b0 0e 88    	mov.w     w0, 0x1d6
+
+000014ca <.LM63>:
+    14ca:	00 00 06    	return    
+
+000014cc <_main>:
+    14cc:	c1 fd 07    	rcall     0x1050 <_Sys_init>
+
+000014ce <.LM66>:
+    14ce:	82 3e 20    	mov.w     #0x3e8, w2
+    14d0:	82 00 78    	mov.w     w2, w1
+    14d2:	00 00 eb    	clr.w     w0
+    14d4:	d2 00 07    	rcall     0x167a <_EE_alarm_SetRelAlarm>
+
+000014d6 <.LM67>:
+    14d6:	22 03 20    	mov.w     #0x32, w2
+    14d8:	81 3e 20    	mov.w     #0x3e8, w1
+    14da:	10 00 20    	mov.w     #0x1, w0
+    14dc:	ce 00 07    	rcall     0x167a <_EE_alarm_SetRelAlarm>
+
+000014de <.LM68>:
+    14de:	22 03 20    	mov.w     #0x32, w2
+    14e0:	61 40 20    	mov.w     #0x406, w1
+    14e2:	20 00 20    	mov.w     #0x2, w0
+    14e4:	ca 00 07    	rcall     0x167a <_EE_alarm_SetRelAlarm>
+
+000014e6 <.LM69>:
+    14e6:	a2 00 20    	mov.w     #0xa, w2
+    14e8:	81 3e 20    	mov.w     #0x3e8, w1
+    14ea:	30 00 20    	mov.w     #0x3, w0
+    14ec:	c6 00 07    	rcall     0x167a <_EE_alarm_SetRelAlarm>
+
+000014ee <.L45>:
+    14ee:	ff ff 37    	bra       .
+
+000014f0 <_EE_pic30_hal_ready2stacked>:
+    14f0:	00 00 fc    	disi      #0x0
+    14f2:	00 00 01    	call      w0
+    14f4:	ff 3f fc    	disi      #0x3fff
+    14f6:	58 01 07    	rcall     0x17a8 <_EE_thread_end_instance>
+    14f8:	90 44 80    	mov.w     0x892, w0
+    14fa:	00 00 e0    	cp0.w     w0
+    14fc:	f9 ff 3a    	bra       NZ, 0x14f0 <_EE_pic30_hal_ready2stacked>
+    14fe:	00 00 06    	return    
+
+00001500 <_EE_alarm_insert>:
+    1500:	88 9f be    	mov.d     w8, [w15++]
+    1502:	80 04 78    	mov.w     w0, w9
+    1504:	81 02 78    	mov.w     w1, w5
+
+00001506 <.LM2>:
+    1506:	6a 00 b9    	mul.su    w0, #0xa, w0
+    1508:	42 85 29    	mov.w     #0x9854, w2
+    150a:	62 00 78    	mov.w     [w2+w0], w0
+    150c:	42 00 dd    	sl.w      w0, #0x2, w0
+    150e:	00 81 e8    	inc2.w    w0, w2
+    1510:	08 83 20    	mov.w     #0x830, w8
+    1512:	62 02 7c    	mov.w     [w2+w8], w4
+
+00001514 <.LM3>:
+    1514:	e1 0f 42    	add.w     w4, #0x1, [w15]
+    1516:	29 00 32    	bra       Z, 0x156a <.L14>
+
+00001518 <.LM4>:
+    1518:	66 20 b9    	mul.su    w4, #0x6, w0
+    151a:	00 83 e8    	inc2.w    w0, w6
+    151c:	07 80 20    	mov.w     #0x800, w7
+    151e:	e6 81 7b    	mov.w     [w6+w7], w3
+    1520:	85 8f 51    	sub.w     w3, w5, [w15]
+    1522:	18 00 3c    	bra       GT, 0x1554 <.L15>
+
+00001524 <.L12>:
+    1524:	80 80 e8    	inc2.w    w0, w1
+    1526:	e1 80 7b    	mov.w     [w1+w7], w1
+    1528:	81 82 52    	sub.w     w5, w1, w5
+
+0000152a <.LM6>:
+    152a:	64 03 40    	add.w     w0, #0x4, w6
+    152c:	66 81 7b    	mov.w     [w6+w7], w2
+
+0000152e <.LM7>:
+    152e:	e1 0f 41    	add.w     w2, #0x1, [w15]
+    1530:	07 00 32    	bra       Z, 0x1540 <.L8>
+    1532:	66 10 b9    	mul.su    w2, #0x6, w0
+    1534:	00 82 e8    	inc2.w    w0, w4
+    1536:	e4 81 7b    	mov.w     [w4+w7], w3
+    1538:	83 8f 52    	sub.w     w5, w3, [w15]
+    153a:	f4 ff 3d    	bra       GE, 0x1524 <.L12>
+
+0000153c <.LM8>:
+    153c:	05 80 51    	sub.w     w3, w5, w0
+    153e:	00 b2 7b    	mov.w     w0, [w4+w7]
+
+00001540 <.L8>:
+    1540:	00 80 20    	mov.w     #0x800, w0
+    1542:	09 33 78    	mov.w     w9, [w6+w0]
+    1544:	02 02 78    	mov.w     w2, w4
+
+00001546 <.LM10>:
+    1546:	66 48 b9    	mul.su    w9, #0x6, w0
+    1548:	00 81 e8    	inc2.w    w0, w2
+    154a:	05 b1 7b    	mov.w     w5, [w2+w7]
+
+0000154c <.LM11>:
+    154c:	64 00 40    	add.w     w0, #0x4, w0
+    154e:	04 b0 7b    	mov.w     w4, [w0+w7]
+
+00001550 <.LM12>:
+    1550:	4f 04 be    	mov.d     [--w15], w8
+    1552:	00 00 06    	return    
+
+00001554 <.L15>:
+    1554:	09 31 7c    	mov.w     w9, [w2+w8]
+
+00001556 <.LM14>:
+    1556:	05 80 51    	sub.w     w3, w5, w0
+    1558:	00 b3 7b    	mov.w     w0, [w6+w7]
+
+0000155a <.LM15>:
+    155a:	66 48 b9    	mul.su    w9, #0x6, w0
+    155c:	00 81 e8    	inc2.w    w0, w2
+    155e:	05 b1 7b    	mov.w     w5, [w2+w7]
+
+00001560 <.LM16>:
+    1560:	64 00 40    	add.w     w0, #0x4, w0
+    1562:	04 b0 7b    	mov.w     w4, [w0+w7]
+
+00001564 <.LM17>:
+    1564:	4f 04 be    	mov.d     [--w15], w8
+    1566:	00 00 06    	return    
+    1568:	f5 ff 37    	bra       0x1554 <.L15>
+
+0000156a <.L14>:
+    156a:	09 31 7c    	mov.w     w9, [w2+w8]
+    156c:	07 80 20    	mov.w     #0x800, w7
+
+0000156e <.LM19>:
+    156e:	66 48 b9    	mul.su    w9, #0x6, w0
+    1570:	00 81 e8    	inc2.w    w0, w2
+    1572:	05 b1 7b    	mov.w     w5, [w2+w7]
+
+00001574 <.LM20>:
+    1574:	64 00 40    	add.w     w0, #0x4, w0
+    1576:	04 b0 7b    	mov.w     w4, [w0+w7]
+
+00001578 <.LM21>:
+    1578:	4f 04 be    	mov.d     [--w15], w8
+    157a:	00 00 06    	return    
+    157c:	eb ff 37    	bra       0x1554 <.L15>
+
+0000157e <_EE_alarm_CounterTick>:
+    157e:	e8 87 47    	add.w     w15, #0x8, w15
+    1580:	88 9f be    	mov.d     w8, [w15++]
+    1582:	8a 9f be    	mov.d     w10, [w15++]
+    1584:	8c 9f be    	mov.d     w12, [w15++]
+    1586:	8e 1f 78    	mov.w     w14, [w15++]
+    1588:	60 11 b8    	mul.uu    w2, #0x0, w2
+    158a:	f2 b7 9f    	mov.w     w2, [w15-18]
+    158c:	83 bf 9f    	mov.w     w3, [w15-16]
+
+0000158e <.LBB2>:
+    158e:	93 02 80    	mov.w     0x52, w3
+    1590:	e3 b7 9f    	mov.w     w3, [w15-20]
+
+00001592 <.LBB4>:
+    1592:	ff 3f fc    	disi      #0x3fff
+
+00001594 <.LBE2>:
+    1594:	42 00 dd    	sl.w      w0, #0x2, w0
+    1596:	02 83 20    	mov.w     #0x830, w2
+    1598:	e0 00 79    	mov.w     [w0+w2], w1
+    159a:	81 00 e8    	inc.w     w1, w1
+    159c:	01 30 79    	mov.w     w1, [w0+w2]
+
+0000159e <.LM26>:
+    159e:	00 81 e8    	inc2.w    w0, w2
+    15a0:	03 83 20    	mov.w     #0x830, w3
+    15a2:	62 85 79    	mov.w     [w2+w3], w10
+    15a4:	e1 0f 45    	add.w     w10, #0x1, [w15]
+    15a6:	24 00 32    	bra       Z, 0x15f0 <.L19>
+
+000015a8 <.LM27>:
+    15a8:	66 54 b9    	mul.su    w10, #0x6, w8
+    15aa:	88 80 e8    	inc2.w    w8, w1
+    15ac:	0d 80 20    	mov.w     #0x800, w13
+    15ae:	61 80 7e    	mov.w     [w1+w13], w0
+    15b0:	00 00 e9    	dec.w     w0, w0
+    15b2:	80 b0 7e    	mov.w     w0, [w1+w13]
+    15b4:	02 07 78    	mov.w     w2, w14
+
+000015b6 <.LM28>:
+    15b6:	08 80 e8    	inc2.w    w8, w0
+    15b8:	60 80 7e    	mov.w     [w0+w13], w0
+    15ba:	00 00 e0    	cp0.w     w0
+    15bc:	19 00 3a    	bra       NZ, 0x15f0 <.L19>
+
+000015be <.L22>:
+    15be:	6a 50 b9    	mul.su    w10, #0xa, w0
+    15c0:	80 00 78    	mov.w     w0, w1
+    15c2:	00 80 e8    	inc2.w    w0, w0
+    15c4:	42 85 29    	mov.w     #0x9854, w2
+    15c6:	60 40 79    	mov.b     [w0+w2], w0
+    15c8:	00 04 e0    	cp0.b     w0
+    15ca:	2a 00 32    	bra       Z, 0x1620 <.L24>
+    15cc:	e1 4f 50    	sub.b     w0, #0x1, [w15]
+    15ce:	1d 00 32    	bra       Z, 0x160a <.L35>
+
+000015d0 <.LM30>:
+    15d0:	64 00 44    	add.w     w8, #0x4, w0
+    15d2:	60 80 7e    	mov.w     [w0+w13], w0
+    15d4:	03 83 20    	mov.w     #0x830, w3
+    15d6:	00 b7 79    	mov.w     w0, [w14+w3]
+
+000015d8 <.LM31>:
+    15d8:	e8 80 7e    	mov.w     [w8+w13], w1
+    15da:	01 00 e0    	cp0.w     w1
+    15dc:	13 00 3a    	bra       NZ, 0x1604 <.L36>
+
+000015de <.L28>:
+    15de:	00 83 20    	mov.w     #0x830, w0
+    15e0:	6e 05 78    	mov.w     [w14+w0], w10
+    15e2:	e1 0f 45    	add.w     w10, #0x1, [w15]
+    15e4:	05 00 32    	bra       Z, 0x15f0 <.L19>
+    15e6:	66 54 b9    	mul.su    w10, #0x6, w8
+
+000015e8 <.LM33>:
+    15e8:	08 80 e8    	inc2.w    w8, w0
+    15ea:	60 80 7e    	mov.w     [w0+w13], w0
+    15ec:	00 00 e0    	cp0.w     w0
+    15ee:	e7 ff 32    	bra       Z, 0x15be <.L22>
+
+000015f0 <.L19>:
+    15f0:	6f b0 97    	mov.w     [w15-20], w0
+    15f2:	00 00 e0    	cp0.w     w0
+    15f4:	3a 00 32    	bra       Z, 0x166a <.L30>
+
+000015f6 <.LBB7>:
+    15f6:	ff 3f fc    	disi      #0x3fff
+
+000015f8 <.LBE6>:
+    15f8:	4f 07 78    	mov.w     [--w15], w14
+    15fa:	4f 06 be    	mov.d     [--w15], w12
+    15fc:	4f 05 be    	mov.d     [--w15], w10
+    15fe:	4f 04 be    	mov.d     [--w15], w8
+    1600:	8f 00 b1    	sub.w     #0x8, w15
+    1602:	00 00 06    	return    
+
+00001604 <.L36>:
+    1604:	0a 00 78    	mov.w     w10, w0
+    1606:	7c ff 07    	rcall     0x1500 <_EE_alarm_insert>
+    1608:	ea ff 37    	bra       0x15de <.L28>
+
+0000160a <.L35>:
+    160a:	68 80 40    	add.w     w1, #0x8, w0
+    160c:	62 00 78    	mov.w     [w2+w0], w0
+    160e:	00 00 01    	call      w0
+
+00001610 <.LM39>:
+    1610:	64 00 44    	add.w     w8, #0x4, w0
+    1612:	60 80 7e    	mov.w     [w0+w13], w0
+    1614:	03 83 20    	mov.w     #0x830, w3
+    1616:	00 b7 79    	mov.w     w0, [w14+w3]
+
+00001618 <.LM40>:
+    1618:	e8 80 7e    	mov.w     [w8+w13], w1
+    161a:	01 00 e0    	cp0.w     w1
+    161c:	e0 ff 32    	bra       Z, 0x15de <.L28>
+    161e:	f2 ff 37    	bra       0x1604 <.L36>
+
+00001620 <.L24>:
+    1620:	02 80 40    	add.w     w1, w2, w0
+    1622:	20 02 90    	mov.w     [w0+4], w4
+    1624:	b0 02 90    	mov.w     [w0+6], w5
+
+00001626 <.LM42>:
+    1626:	84 05 42    	add.w     w4, w4, w11
+    1628:	8c 82 20    	mov.w     #0x828, w12
+    162a:	6b 00 7e    	mov.w     [w11+w12], w0
+    162c:	00 00 e0    	cp0.w     w0
+    162e:	0a 00 32    	bra       Z, 0x1644 <.L37>
+
+00001630 <.LM43>:
+    1630:	00 00 e8    	inc.w     w0, w0
+    1632:	80 35 7e    	mov.w     w0, [w11+w12]
+
+00001634 <.L38>:
+    1634:	64 00 44    	add.w     w8, #0x4, w0
+    1636:	60 80 7e    	mov.w     [w0+w13], w0
+    1638:	03 83 20    	mov.w     #0x830, w3
+    163a:	00 b7 79    	mov.w     w0, [w14+w3]
+
+0000163c <.LM45>:
+    163c:	e8 80 7e    	mov.w     [w8+w13], w1
+    163e:	01 00 e0    	cp0.w     w1
+    1640:	ce ff 32    	bra       Z, 0x15de <.L28>
+    1642:	e0 ff 37    	bra       0x1604 <.L36>
+
+00001644 <.L37>:
+    1644:	80 09 80    	mov.w     0x130, w0
+    1646:	f0 b7 9f    	mov.w     w0, [w15-18]
+
+00001648 <.LM47>:
+    1648:	a1 09 80    	mov.w     0x134, w1
+    164a:	81 bf 9f    	mov.w     w1, [w15-16]
+
+0000164c <.LBE10>:
+    164c:	42 20 dd    	sl.w      w4, #0x2, w0
+    164e:	81 81 20    	mov.w     #0x818, w1
+    1650:	81 00 40    	add.w     w0, w1, w1
+    1652:	c2 87 29    	mov.w     #0x987c, w2
+    1654:	02 00 40    	add.w     w0, w2, w0
+    1656:	7f b1 97    	mov.w     [w15-18], w2
+    1658:	8f b9 97    	mov.w     [w15-16], w3
+    165a:	b0 18 41    	add.w     w2, [w0++], [w1++]
+    165c:	a0 90 49    	addc.w    w3, [w0--], [w1--]
+
+0000165e <.LM49>:
+    165e:	04 00 be    	mov.d     w4, w0
+    1660:	62 00 07    	rcall     0x1726 <_EE_rq_insert>
+    1662:	6b 00 7e    	mov.w     [w11+w12], w0
+
+00001664 <.LM50>:
+    1664:	00 00 e8    	inc.w     w0, w0
+    1666:	80 35 7e    	mov.w     w0, [w11+w12]
+    1668:	e5 ff 37    	bra       0x1634 <.L38>
+
+0000166a <.L30>:
+    166a:	00 00 fc    	disi      #0x0
+
+0000166c <.LBE12>:
+    166c:	4f 07 78    	mov.w     [--w15], w14
+    166e:	4f 06 be    	mov.d     [--w15], w12
+    1670:	4f 05 be    	mov.d     [--w15], w10
+    1672:	4f 04 be    	mov.d     [--w15], w8
+    1674:	8f 00 b1    	sub.w     #0x8, w15
+    1676:	00 00 06    	return    
+    1678:	c5 ff 37    	bra       0x1604 <.L36>
+
+0000167a <_EE_alarm_SetRelAlarm>:
+    167a:	88 1f 78    	mov.w     w8, [w15++]
+
+0000167c <.LBB2>:
+    167c:	98 02 80    	mov.w     0x52, w8
+
+0000167e <.LBB4>:
+    167e:	ff 3f fc    	disi      #0x3fff
+
+00001680 <.LBE2>:
+    1680:	66 02 b9    	mul.su    w0, #0x6, w4
+    1682:	03 80 20    	mov.w     #0x800, w3
+    1684:	82 31 7a    	mov.w     w2, [w3+w4]
+
+00001686 <.LM5>:
+    1686:	3c ff 07    	rcall     0x1500 <_EE_alarm_insert>
+
+00001688 <.LBB6>:
+    1688:	08 00 e0    	cp0.w     w8
+    168a:	03 00 32    	bra       Z, 0x1692 <.L2>
+
+0000168c <.LBB7>:
+    168c:	ff 3f fc    	disi      #0x3fff
+
+0000168e <.LBE6>:
+    168e:	4f 04 78    	mov.w     [--w15], w8
+    1690:	00 00 06    	return    
+
+00001692 <.L2>:
+    1692:	00 00 fc    	disi      #0x0
+
+00001694 <.LBE10>:
+    1694:	4f 04 78    	mov.w     [--w15], w8
+    1696:	00 00 06    	return    
+    1698:	fc ff 37    	bra       0x1692 <.L2>
+
+0000169a <_EE_edf_GetTime>:
+    169a:	ff 3f fc    	disi      #0x3fff
+
+0000169c <.LBB5>:
+    169c:	80 09 80    	mov.w     0x130, w0
+
+0000169e <.LM4>:
+    169e:	a1 09 80    	mov.w     0x134, w1
+
+000016a0 <.LBB7>:
+    16a0:	00 00 fc    	disi      #0x0
+
+000016a2 <.LBE7>:
+    16a2:	00 00 06    	return    
+
+000016a4 <_EE_IRQ_end_instance>:
+    16a4:	b4 41 80    	mov.w     0x836, w4
+    16a6:	c5 41 80    	mov.w     0x838, w5
+
+000016a8 <.LBE2>:
+    16a8:	e1 0f 42    	add.w     w4, #0x1, [w15]
+    16aa:	e0 8f 4a    	addc.w    w5, #0x0, [w15]
+    16ac:	20 00 32    	bra       Z, 0x16ee <.L2>
+
+000016ae <.LBB4>:
+    16ae:	d0 41 80    	mov.w     0x83a, w0
+    16b0:	e1 41 80    	mov.w     0x83c, w1
+
+000016b2 <.LBE4>:
+    16b2:	e1 0f 40    	add.w     w0, #0x1, [w15]
+    16b4:	e0 8f 48    	addc.w    w1, #0x0, [w15]
+    16b6:	1d 00 32    	bra       Z, 0x16f2 <.L9>
+    16b8:	c2 00 dd    	sl.w      w0, #0x2, w1
+    16ba:	82 81 20    	mov.w     #0x818, w2
+    16bc:	82 80 40    	add.w     w1, w2, w1
+    16be:	42 20 dd    	sl.w      w4, #0x2, w0
+    16c0:	02 00 40    	add.w     w0, w2, w0
+    16c2:	11 03 be    	mov.d     [w1], w6
+    16c4:	30 01 53    	sub.w     w6, [w0++], w2
+    16c6:	a0 81 5b    	subb.w    w7, [w0--], w3
+    16c8:	42 40 a9    	bclr.b    0x42, #0x2
+    16ca:	11 00 34    	bra       LE, 0x16ee <.L2>
+    16cc:	04 00 42    	add.w     w4, w4, w0
+    16ce:	41 89 29    	mov.w     #0x9894, w1
+    16d0:	61 00 78    	mov.w     [w1+w0], w0
+    16d2:	a2 41 80    	mov.w     0x834, w2
+    16d4:	82 0f 50    	sub.w     w0, w2, [w15]
+    16d6:	0b 00 36    	bra       LEU, 0x16ee <.L2>
+
+000016d8 <.LM6>:
+    16d8:	84 00 42    	add.w     w4, w4, w1
+    16da:	c0 88 29    	mov.w     #0x988c, w0
+    16dc:	60 80 78    	mov.w     [w0+w1], w0
+    16de:	02 00 70    	ior.w     w0, w2, w0
+    16e0:	a0 41 88    	mov.w     w0, 0x834
+
+000016e2 <.LM7>:
+    16e2:	13 00 07    	rcall     0x170a <_EE_rq2stk_exchange>
+
+000016e4 <.LBB6>:
+    16e4:	00 00 40    	add.w     w0, w0, w0
+    16e6:	c2 89 29    	mov.w     #0x989c, w2
+    16e8:	62 01 78    	mov.w     [w2+w0], w2
+    16ea:	92 44 88    	mov.w     w2, 0x892
+    16ec:	00 00 06    	return    
+
+000016ee <.L2>:
+    16ee:	92 28 ef    	clr.w     0x892
+    16f0:	00 00 06    	return    
+
+000016f2 <.L9>:
+    16f2:	a2 41 80    	mov.w     0x834, w2
+
+000016f4 <.LBE8>:
+    16f4:	84 00 42    	add.w     w4, w4, w1
+    16f6:	c0 88 29    	mov.w     #0x988c, w0
+    16f8:	60 80 78    	mov.w     [w0+w1], w0
+    16fa:	02 00 70    	ior.w     w0, w2, w0
+    16fc:	a0 41 88    	mov.w     w0, 0x834
+
+000016fe <.LM11>:
+    16fe:	05 00 07    	rcall     0x170a <_EE_rq2stk_exchange>
+
+00001700 <.LM12>:
+    1700:	00 00 40    	add.w     w0, w0, w0
+    1702:	c2 89 29    	mov.w     #0x989c, w2
+    1704:	62 01 78    	mov.w     [w2+w0], w2
+    1706:	92 44 88    	mov.w     w2, 0x892
+    1708:	00 00 06    	return    
+
+0000170a <_EE_rq2stk_exchange>:
+    170a:	b0 41 80    	mov.w     0x836, w0
+    170c:	c1 41 80    	mov.w     0x838, w1
+
+0000170e <.LM3>:
+    170e:	42 01 dd    	sl.w      w0, #0x2, w2
+    1710:	e3 83 20    	mov.w     #0x83e, w3
+    1712:	03 01 41    	add.w     w2, w3, w2
+    1714:	12 02 be    	mov.d     [w2], w4
+    1716:	b4 41 88    	mov.w     w4, 0x836
+    1718:	c5 41 88    	mov.w     w5, 0x838
+
+0000171a <.LM4>:
+    171a:	d4 41 80    	mov.w     0x83a, w4
+    171c:	e5 41 80    	mov.w     0x83c, w5
+    171e:	04 89 be    	mov.d     w4, [w2]
+
+00001720 <.LM5>:
+    1720:	d0 41 88    	mov.w     w0, 0x83a
+    1722:	e1 41 88    	mov.w     w1, 0x83c
+
+00001724 <.LM6>:
+    1724:	00 00 06    	return    
+
+00001726 <_EE_rq_insert>:
+    1726:	e6 87 47    	add.w     w15, #0x6, w15
+    1728:	88 9f be    	mov.d     w8, [w15++]
+    172a:	8a 9f be    	mov.d     w10, [w15++]
+    172c:	8c 9f be    	mov.d     w12, [w15++]
+    172e:	8e 1f 78    	mov.w     w14, [w15++]
+    1730:	f0 b7 9f    	mov.w     w0, [w15-18]
+    1732:	81 bf 9f    	mov.w     w1, [w15-16]
+
+00001734 <.LBB2>:
+    1734:	b2 41 80    	mov.w     0x836, w2
+    1736:	c3 41 80    	mov.w     0x838, w3
+
+00001738 <.LBE2>:
+    1738:	42 06 dd    	sl.w      w0, #0x2, w12
+    173a:	85 81 20    	mov.w     #0x818, w5
+    173c:	05 00 46    	add.w     w12, w5, w0
+    173e:	10 04 be    	mov.d     [w0], w8
+
+00001740 <.LM4>:
+    1740:	e1 0f 41    	add.w     w2, #0x1, [w15]
+    1742:	e0 8f 49    	addc.w    w3, #0x0, [w15]
+    1744:	23 00 32    	bra       Z, 0x178c <.L15>
+    1746:	42 12 dd    	sl.w      w2, #0x2, w4
+    1748:	05 00 42    	add.w     w4, w5, w0
+    174a:	30 05 54    	sub.w     w8, [w0++], w10
+    174c:	a0 85 5c    	subb.w    w9, [w0--], w11
+    174e:	ed 83 20    	mov.w     #0x83e, w13
+    1750:	1e 00 33    	bra       N, 0x178e <.L2>
+    1752:	ed 83 20    	mov.w     #0x83e, w13
+    1754:	0d 07 78    	mov.w     w13, w14
+
+00001756 <.L4>:
+    1756:	02 03 be    	mov.d     w2, w6
+
+00001758 <.LM5>:
+    1758:	0d 00 42    	add.w     w4, w13, w0
+    175a:	10 01 be    	mov.d     [w0], w2
+
+0000175c <.LM6>:
+    175c:	e1 0f 41    	add.w     w2, #0x1, [w15]
+    175e:	e0 8f 49    	addc.w    w3, #0x0, [w15]
+    1760:	05 00 32    	bra       Z, 0x176c <.L5>
+    1762:	42 12 dd    	sl.w      w2, #0x2, w4
+    1764:	05 00 42    	add.w     w4, w5, w0
+    1766:	30 05 54    	sub.w     w8, [w0++], w10
+    1768:	a0 85 5c    	subb.w    w9, [w0--], w11
+    176a:	f5 ff 3b    	bra       NN, 0x1756 <.L4>
+
+0000176c <.L5>:
+    176c:	e1 0f 43    	add.w     w6, #0x1, [w15]
+    176e:	e0 8f 4b    	addc.w    w7, #0x0, [w15]
+    1770:	0e 00 32    	bra       Z, 0x178e <.L2>
+
+00001772 <.LM8>:
+    1772:	42 30 dd    	sl.w      w6, #0x2, w0
+    1774:	0e 00 40    	add.w     w0, w14, w0
+    1776:	7f b2 97    	mov.w     [w15-18], w4
+    1778:	8f ba 97    	mov.w     [w15-16], w5
+    177a:	04 88 be    	mov.d     w4, [w0]
+
+0000177c <.LM9>:
+    177c:	0d 00 46    	add.w     w12, w13, w0
+    177e:	02 88 be    	mov.d     w2, [w0]
+
+00001780 <.LM10>:
+    1780:	4f 07 78    	mov.w     [--w15], w14
+    1782:	4f 06 be    	mov.d     [--w15], w12
+    1784:	4f 05 be    	mov.d     [--w15], w10
+    1786:	4f 04 be    	mov.d     [--w15], w8
+    1788:	6f 00 b1    	sub.w     #0x6, w15
+    178a:	00 00 06    	return    
+
+0000178c <.L15>:
+    178c:	ed 83 20    	mov.w     #0x83e, w13
+
+0000178e <.L2>:
+    178e:	7f b3 97    	mov.w     [w15-18], w6
+    1790:	8f bb 97    	mov.w     [w15-16], w7
+    1792:	b6 41 88    	mov.w     w6, 0x836
+    1794:	c7 41 88    	mov.w     w7, 0x838
+
+00001796 <.LM12>:
+    1796:	0d 00 46    	add.w     w12, w13, w0
+    1798:	02 88 be    	mov.d     w2, [w0]
+
+0000179a <.LM13>:
+    179a:	4f 07 78    	mov.w     [--w15], w14
+    179c:	4f 06 be    	mov.d     [--w15], w12
+    179e:	4f 05 be    	mov.d     [--w15], w10
+    17a0:	4f 04 be    	mov.d     [--w15], w8
+    17a2:	6f 00 b1    	sub.w     #0x6, w15
+    17a4:	00 00 06    	return    
+    17a6:	f2 ff 37    	bra       0x178c <.L15>
+
+000017a8 <_EE_thread_end_instance>:
+    17a8:	88 1f 78    	mov.w     w8, [w15++]
+    17aa:	8a 9f be    	mov.d     w10, [w15++]
+
+000017ac <.LBB2>:
+    17ac:	d4 41 80    	mov.w     0x83a, w4
+    17ae:	e5 41 80    	mov.w     0x83c, w5
+
+000017b0 <.LBE2>:
+    17b0:	04 00 42    	add.w     w4, w4, w0
+    17b2:	81 82 20    	mov.w     #0x828, w1
+    17b4:	60 81 78    	mov.w     [w0+w1], w2
+    17b6:	02 01 e9    	dec.w     w2, w2
+    17b8:	02 b0 78    	mov.w     w2, [w0+w1]
+
+000017ba <.LM4>:
+    17ba:	c8 88 29    	mov.w     #0x988c, w8
+    17bc:	68 00 78    	mov.w     [w8+w0], w0
+    17be:	00 80 ea    	com.w     w0, w0
+    17c0:	34 28 b6    	and.w     0x834
+
+000017c2 <.LBB4>:
+    17c2:	c2 21 dd    	sl.w      w4, #0x2, w3
+    17c4:	e0 83 20    	mov.w     #0x83e, w0
+    17c6:	00 80 41    	add.w     w3, w0, w0
+    17c8:	10 05 be    	mov.d     [w0], w10
+    17ca:	da 41 88    	mov.w     w10, 0x83a
+    17cc:	eb 41 88    	mov.w     w11, 0x83c
+
+000017ce <.LBE4>:
+    17ce:	02 00 e0    	cp0.w     w2
+    17d0:	2b 00 3a    	bra       NZ, 0x1828 <.L13>
+
+000017d2 <.L2>:
+    17d2:	b4 41 80    	mov.w     0x836, w4
+    17d4:	c5 41 80    	mov.w     0x838, w5
+
+000017d6 <.LBE6>:
+    17d6:	e1 0f 42    	add.w     w4, #0x1, [w15]
+    17d8:	e0 8f 4a    	addc.w    w5, #0x0, [w15]
+    17da:	21 00 32    	bra       Z, 0x181e <.L14>
+
+000017dc <.LBB8>:
+    17dc:	d0 41 80    	mov.w     0x83a, w0
+    17de:	e1 41 80    	mov.w     0x83c, w1
+
+000017e0 <.LBE8>:
+    17e0:	e1 0f 40    	add.w     w0, #0x1, [w15]
+    17e2:	e0 8f 48    	addc.w    w1, #0x0, [w15]
+    17e4:	2c 00 32    	bra       Z, 0x183e <.L11>
+    17e6:	c2 00 dd    	sl.w      w0, #0x2, w1
+    17e8:	82 81 20    	mov.w     #0x818, w2
+    17ea:	82 80 40    	add.w     w1, w2, w1
+    17ec:	42 20 dd    	sl.w      w4, #0x2, w0
+    17ee:	02 00 40    	add.w     w0, w2, w0
+    17f0:	11 03 be    	mov.d     [w1], w6
+    17f2:	30 01 53    	sub.w     w6, [w0++], w2
+    17f4:	a0 81 5b    	subb.w    w7, [w0--], w3
+    17f6:	42 40 a9    	bclr.b    0x42, #0x2
+    17f8:	12 00 34    	bra       LE, 0x181e <.L14>
+    17fa:	04 00 42    	add.w     w4, w4, w0
+    17fc:	41 89 29    	mov.w     #0x9894, w1
+    17fe:	61 00 78    	mov.w     [w1+w0], w0
+    1800:	a1 41 80    	mov.w     0x834, w1
+    1802:	81 0f 50    	sub.w     w0, w1, [w15]
+    1804:	0c 00 36    	bra       LEU, 0x181e <.L14>
+
+00001806 <.LM11>:
+    1806:	04 00 42    	add.w     w4, w4, w0
+    1808:	68 00 78    	mov.w     [w8+w0], w0
+    180a:	01 00 70    	ior.w     w0, w1, w0
+    180c:	a0 41 88    	mov.w     w0, 0x834
+
+0000180e <.LM12>:
+    180e:	7d ff 07    	rcall     0x170a <_EE_rq2stk_exchange>
+
+00001810 <.LBB10>:
+    1810:	00 00 40    	add.w     w0, w0, w0
+    1812:	c2 89 29    	mov.w     #0x989c, w2
+    1814:	62 01 78    	mov.w     [w2+w0], w2
+    1816:	92 44 88    	mov.w     w2, 0x892
+
+00001818 <.L10>:
+    1818:	4f 05 be    	mov.d     [--w15], w10
+    181a:	4f 04 78    	mov.w     [--w15], w8
+    181c:	00 00 06    	return    
+
+0000181e <.L14>:
+    181e:	92 28 ef    	clr.w     0x892
+
+00001820 <.LBE12>:
+    1820:	4f 05 be    	mov.d     [--w15], w10
+    1822:	4f 04 78    	mov.w     [--w15], w8
+    1824:	00 00 06    	return    
+    1826:	fb ff 37    	bra       0x181e <.L14>
+
+00001828 <.L13>:
+    1828:	86 09 80    	mov.w     0x130, w6
+
+0000182a <.LM18>:
+    182a:	a7 09 80    	mov.w     0x134, w7
+
+0000182c <.LBE13>:
+    182c:	81 81 20    	mov.w     #0x818, w1
+    182e:	81 80 41    	add.w     w3, w1, w1
+    1830:	c0 87 29    	mov.w     #0x987c, w0
+    1832:	00 80 41    	add.w     w3, w0, w0
+    1834:	b0 18 43    	add.w     w6, [w0++], [w1++]
+    1836:	a0 90 4b    	addc.w    w7, [w0--], [w1--]
+
+00001838 <.LM20>:
+    1838:	04 00 be    	mov.d     w4, w0
+    183a:	75 ff 07    	rcall     0x1726 <_EE_rq_insert>
+    183c:	ca ff 37    	bra       0x17d2 <.L2>
+
+0000183e <.L11>:
+    183e:	a1 41 80    	mov.w     0x834, w1
+
+00001840 <.LM21>:
+    1840:	04 00 42    	add.w     w4, w4, w0
+    1842:	68 00 78    	mov.w     [w8+w0], w0
+    1844:	01 00 70    	ior.w     w0, w1, w0
+    1846:	a0 41 88    	mov.w     w0, 0x834
+
+00001848 <.LM22>:
+    1848:	60 ff 07    	rcall     0x170a <_EE_rq2stk_exchange>
+
+0000184a <.LM23>:
+    184a:	00 00 40    	add.w     w0, w0, w0
+    184c:	c2 89 29    	mov.w     #0x989c, w2
+    184e:	62 01 78    	mov.w     [w2+w0], w2
+    1850:	92 44 88    	mov.w     w2, 0x892
+    1852:	e2 ff 37    	bra       0x1818 <.L10>
+Disassembly of section __FGS:
+
+00f80004 <__FGS.sec>:
+  f80004:	ff ff 00    	nop       
+Disassembly of section __FOSCSEL:
+
+00f80006 <__FOSCSEL>:
+  f80006:	fb ff 00    	nop       
+Disassembly of section __FOSC:
+
+00f80008 <__FOSC>:
+  f80008:	f9 ff 00    	nop       
+Disassembly of section __FWDT:
+
+00f8000a <__FWDT>:
+  f8000a:	7f ff 00    	nop       
+Disassembly of section .ivt:
+
+00000004 <.ivt>:
+   4:	0a 19 00    	nop       
+   6:	0a 19 00    	nop       
+   8:	0a 19 00    	nop       
+   a:	0a 19 00    	nop       
+   c:	0a 19 00    	nop       
+   e:	0a 19 00    	nop       
+  10:	0a 19 00    	nop       
+  12:	0a 19 00    	nop       
+  14:	0a 19 00    	nop       
+  16:	0a 19 00    	nop       
+  18:	0a 19 00    	nop       
+  1a:	8e 10 00    	nop       
+  1c:	0a 19 00    	nop       
+  1e:	0a 19 00    	nop       
+  20:	0a 19 00    	nop       
+  22:	0a 19 00    	nop       
+  24:	0a 19 00    	nop       
+  26:	0a 19 00    	nop       
+  28:	0a 19 00    	nop       
+  2a:	0a 19 00    	nop       
+  2c:	0a 19 00    	nop       
+  2e:	0a 19 00    	nop       
+  30:	0a 19 00    	nop       
+  32:	0a 19 00    	nop       
+  34:	0a 19 00    	nop       
+  36:	0a 19 00    	nop       
+  38:	0a 19 00    	nop       
+  3a:	0a 19 00    	nop       
+  3c:	0a 19 00    	nop       
+  3e:	0a 19 00    	nop       
+  40:	0a 19 00    	nop       
+  42:	0a 19 00    	nop       
+  44:	0a 19 00    	nop       
+  46:	0a 19 00    	nop       
+  48:	0a 19 00    	nop       
+  4a:	0a 19 00    	nop       
+  4c:	0a 19 00    	nop       
+  4e:	0a 19 00    	nop       
+  50:	0a 19 00    	nop       
+  52:	0a 19 00    	nop       
+  54:	0a 19 00    	nop       
+  56:	0a 19 00    	nop       
+  58:	0a 19 00    	nop       
+  5a:	0a 19 00    	nop       
+  5c:	0a 19 00    	nop       
+  5e:	0a 19 00    	nop       
+  60:	0a 19 00    	nop       
+  62:	0a 19 00    	nop       
+  64:	0a 19 00    	nop       
+  66:	0a 19 00    	nop       
+  68:	0a 19 00    	nop       
+  6a:	0a 19 00    	nop       
+  6c:	0a 19 00    	nop       
+  6e:	0a 19 00    	nop       
+  70:	d8 11 00    	nop       
+  72:	0a 19 00    	nop       
+  74:	0a 19 00    	nop       
+  76:	0a 19 00    	nop       
+  78:	0a 19 00    	nop       
+  7a:	0a 19 00    	nop       
+  7c:	0a 19 00    	nop       
+  7e:	0a 19 00    	nop       
+  80:	0a 19 00    	nop       
+  82:	0a 19 00    	nop       
+  84:	0a 19 00    	nop       
+  86:	0a 19 00    	nop       
+  88:	0a 19 00    	nop       
+  8a:	0a 19 00    	nop       
+  8c:	0a 19 00    	nop       
+  8e:	2e 12 00    	nop       
+  90:	0a 19 00    	nop       
+  92:	0a 19 00    	nop       
+  94:	0a 19 00    	nop       
+  96:	82 11 00    	nop       
+  98:	0a 19 00    	nop       
+  9a:	0a 19 00    	nop       
+  9c:	0a 19 00    	nop       
+  9e:	0a 19 00    	nop       
+  a0:	0a 19 00    	nop       
+  a2:	0a 19 00    	nop       
+  a4:	0a 19 00    	nop       
+  a6:	0a 19 00    	nop       
+  a8:	0a 19 00    	nop       
+  aa:	0a 19 00    	nop       
+  ac:	0a 19 00    	nop       
+  ae:	0a 19 00    	nop       
+  b0:	0a 19 00    	nop       
+  b2:	0a 19 00    	nop       
+  b4:	0a 19 00    	nop       
+  b6:	0a 19 00    	nop       
+  b8:	0a 19 00    	nop       
+  ba:	0a 19 00    	nop       
+  bc:	0a 19 00    	nop       
+  be:	0a 19 00    	nop       
+  c0:	0a 19 00    	nop       
+  c2:	0a 19 00    	nop       
+  c4:	0a 19 00    	nop       
+  c6:	0a 19 00    	nop       
+  c8:	0a 19 00    	nop       
+  ca:	0a 19 00    	nop       
+  cc:	0a 19 00    	nop       
+  ce:	0a 19 00    	nop       
+  d0:	0a 19 00    	nop       
+  d2:	0a 19 00    	nop       
+  d4:	0a 19 00    	nop       
+  d6:	0a 19 00    	nop       
+  d8:	0a 19 00    	nop       
+  da:	0a 19 00    	nop       
+  dc:	0a 19 00    	nop       
+  de:	0a 19 00    	nop       
+  e0:	0a 19 00    	nop       
+  e2:	0a 19 00    	nop       
+  e4:	0a 19 00    	nop       
+  e6:	0a 19 00    	nop       
+  e8:	0a 19 00    	nop       
+  ea:	0a 19 00    	nop       
+  ec:	0a 19 00    	nop       
+  ee:	0a 19 00    	nop       
+  f0:	0a 19 00    	nop       
+  f2:	0a 19 00    	nop       
+  f4:	0a 19 00    	nop       
+  f6:	0a 19 00    	nop       
+  f8:	0a 19 00    	nop       
+  fa:	0a 19 00    	nop       
+  fc:	0a 19 00    	nop       
+  fe:	0a 19 00    	nop       
+Disassembly of section .aivt:
+
+00000104 <.aivt>:
+ 104:	0a 19 00    	nop       
+ 106:	0a 19 00    	nop       
+ 108:	0a 19 00    	nop       
+ 10a:	0a 19 00    	nop       
+ 10c:	0a 19 00    	nop       
+ 10e:	0a 19 00    	nop       
+ 110:	0a 19 00    	nop       
+ 112:	0a 19 00    	nop       
+ 114:	0a 19 00    	nop       
+ 116:	0a 19 00    	nop       
+ 118:	0a 19 00    	nop       
+ 11a:	8e 10 00    	nop       
+ 11c:	0a 19 00    	nop       
+ 11e:	0a 19 00    	nop       
+ 120:	0a 19 00    	nop       
+ 122:	0a 19 00    	nop       
+ 124:	0a 19 00    	nop       
+ 126:	0a 19 00    	nop       
+ 128:	0a 19 00    	nop       
+ 12a:	0a 19 00    	nop       
+ 12c:	0a 19 00    	nop       
+ 12e:	0a 19 00    	nop       
+ 130:	0a 19 00    	nop       
+ 132:	0a 19 00    	nop       
+ 134:	0a 19 00    	nop       
+ 136:	0a 19 00    	nop       
+ 138:	0a 19 00    	nop       
+ 13a:	0a 19 00    	nop       
+ 13c:	0a 19 00    	nop       
+ 13e:	0a 19 00    	nop       
+ 140:	0a 19 00    	nop       
+ 142:	0a 19 00    	nop       
+ 144:	0a 19 00    	nop       
+ 146:	0a 19 00    	nop       
+ 148:	0a 19 00    	nop       
+ 14a:	0a 19 00    	nop       
+ 14c:	0a 19 00    	nop       
+ 14e:	0a 19 00    	nop       
+ 150:	0a 19 00    	nop       
+ 152:	0a 19 00    	nop       
+ 154:	0a 19 00    	nop       
+ 156:	0a 19 00    	nop       
+ 158:	0a 19 00    	nop       
+ 15a:	0a 19 00    	nop       
+ 15c:	0a 19 00    	nop       
+ 15e:	0a 19 00    	nop       
+ 160:	0a 19 00    	nop       
+ 162:	0a 19 00    	nop       
+ 164:	0a 19 00    	nop       
+ 166:	0a 19 00    	nop       
+ 168:	0a 19 00    	nop       
+ 16a:	0a 19 00    	nop       
+ 16c:	0a 19 00    	nop       
+ 16e:	0a 19 00    	nop       
+ 170:	d8 11 00    	nop       
+ 172:	0a 19 00    	nop       
+ 174:	0a 19 00    	nop       
+ 176:	0a 19 00    	nop       
+ 178:	0a 19 00    	nop       
+ 17a:	0a 19 00    	nop       
+ 17c:	0a 19 00    	nop       
+ 17e:	0a 19 00    	nop       
+ 180:	0a 19 00    	nop       
+ 182:	0a 19 00    	nop       
+ 184:	0a 19 00    	nop       
+ 186:	0a 19 00    	nop       
+ 188:	0a 19 00    	nop       
+ 18a:	0a 19 00    	nop       
+ 18c:	0a 19 00    	nop       
+ 18e:	2e 12 00    	nop       
+ 190:	0a 19 00    	nop       
+ 192:	0a 19 00    	nop       
+ 194:	0a 19 00    	nop       
+ 196:	82 11 00    	nop       
+ 198:	0a 19 00    	nop       
+ 19a:	0a 19 00    	nop       
+ 19c:	0a 19 00    	nop       
+ 19e:	0a 19 00    	nop       
+ 1a0:	0a 19 00    	nop       
+ 1a2:	0a 19 00    	nop       
+ 1a4:	0a 19 00    	nop       
+ 1a6:	0a 19 00    	nop       
+ 1a8:	0a 19 00    	nop       
+ 1aa:	0a 19 00    	nop       
+ 1ac:	0a 19 00    	nop       
+ 1ae:	0a 19 00    	nop       
+ 1b0:	0a 19 00    	nop       
+ 1b2:	0a 19 00    	nop       
+ 1b4:	0a 19 00    	nop       
+ 1b6:	0a 19 00    	nop       
+ 1b8:	0a 19 00    	nop       
+ 1ba:	0a 19 00    	nop       
+ 1bc:	0a 19 00    	nop       
+ 1be:	0a 19 00    	nop       
+ 1c0:	0a 19 00    	nop       
+ 1c2:	0a 19 00    	nop       
+ 1c4:	0a 19 00    	nop       
+ 1c6:	0a 19 00    	nop       
+ 1c8:	0a 19 00    	nop       
+ 1ca:	0a 19 00    	nop       
+ 1cc:	0a 19 00    	nop       
+ 1ce:	0a 19 00    	nop       
+ 1d0:	0a 19 00    	nop       
+ 1d2:	0a 19 00    	nop       
+ 1d4:	0a 19 00    	nop       
+ 1d6:	0a 19 00    	nop       
+ 1d8:	0a 19 00    	nop       
+ 1da:	0a 19 00    	nop       
+ 1dc:	0a 19 00    	nop       
+ 1de:	0a 19 00    	nop       
+ 1e0:	0a 19 00    	nop       
+ 1e2:	0a 19 00    	nop       
+ 1e4:	0a 19 00    	nop       
+ 1e6:	0a 19 00    	nop       
+ 1e8:	0a 19 00    	nop       
+ 1ea:	0a 19 00    	nop       
+ 1ec:	0a 19 00    	nop       
+ 1ee:	0a 19 00    	nop       
+ 1f0:	0a 19 00    	nop       
+ 1f2:	0a 19 00    	nop       
+ 1f4:	0a 19 00    	nop       
+ 1f6:	0a 19 00    	nop       
+ 1f8:	0a 19 00    	nop       
+ 1fa:	0a 19 00    	nop       
+ 1fc:	0a 19 00    	nop       
+ 1fe:	0a 19 00    	nop       
+Disassembly of section .dinit:
+
+000018a4 <.dinit>:
+    18a4:	30 08 00    	nop       
+    18a6:	1e 00 00    	nop       
+    18a8:	02 00 00    	nop       
+    18aa:	00 00 ff    	nopr      
+    18ac:	ff 00 00    	nop       
+    18ae:	ff ff ff    	nopr      
+    18b0:	ff ff ff    	nopr      
+    18b2:	ff ff ff    	nopr      
+    18b4:	ff ff ff    	nopr      
+    18b6:	ff ff ff    	nopr      
+    18b8:	ff ff ff    	nopr      
+    18ba:	ff ff ff    	nopr      
+    18bc:	ff ff ff    	nopr      
+    18be:	00 08 00    	nop       
+    18c0:	30 00 00    	nop       
+    18c2:	00 00 00    	nop       
+    18c4:	94 08 00    	nop       
+    18c6:	02 00 00    	nop       
+    18c8:	00 00 00    	nop       
+    18ca:	86 08 00    	nop       
+    18cc:	08 00 00    	nop       
+    18ce:	02 00 00    	nop       
+	...
+    18d6:	e0 7f 00    	nop       
+    18d8:	08 00 00    	nop       
+    18da:	00 00 00    	nop       
+    18dc:	e8 7f 00    	nop       
+    18de:	18 00 00    	nop       
+    18e0:	00 00 00    	nop       
+    18e2:	4e 08 00    	nop       
+    18e4:	1c 00 00    	nop       
+    18e6:	02 00 00    	nop       
+    18e8:	33 33 53    	.pword 0x533333
+    18ea:	40 00 00    	nop       
+    18ec:	00 bf 7a    	.pword 0x7abf00
+    18ee:	36 6b 3e    	bra       GTU, 0xef5c
+    18f0:	f4 6c 66    	and.b     w12, #0x14, [++w9]
+    18f2:	bf 7a c7    	mpy.n     ???, A, [w9]+=4, w7, [w11]-=2, w6
+    18f4:	89 3e 6a    	.pword 0x6a3e89
+    18f6:	08 76 08    	.pword 0x087608
+    18f8:	72 08 52    	sub.w     w4, #0x12, [w0]
+    18fa:	08 00 00    	nop       
+    18fc:	6a 08 00    	nop       
+    18fe:	1c 00 00    	nop       
+    1900:	00 00 00    	nop       
+    1902:	8e 08 00    	nop       
+    1904:	06 00 00    	nop       
+	...
+Disassembly of section .isr:
+
+0000190a <__DefaultInterrupt>:
+    190a:	00 40 da    	.pword 0xda4000
+    190c:	00 00 fe    	reset     
