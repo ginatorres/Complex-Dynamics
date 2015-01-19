@@ -11,7 +11,7 @@ Q=[1 -0.3;-0.3 1];
 R=1;
 N=[0;0];
 
-%El control Óptimo directo...
+%El control Ã“ptimo directo...
 [Kd,Sd,Ed]=lqrd(A,B,Q,R,N,h);
 
 
@@ -64,17 +64,30 @@ pcnc=eig(pcl)
 [phi,gamma]=c2d(A,B,h);
 %Tomando dos de los 3 polos del modelo ampliado PCNC, polos complejos no
 %conjugados
-%Diseñamos una Kcompleja la cual es óptima
+%DiseÃ±amos una Kcompleja la cual es Ã³ptima
 Kcomplex=place(phi,gamma,pcnc)
 %%Valores propios con Kcomplex
 phi_cl=phi-gamma*Kcomplex
 Epcnc=eig(phi_cl);
 
+
+%Reconstruimos las matrices, Q,R Y C para el modelo complejo
 Q=[Q1(1:2,1:2)]
 t=Q1(1:2,3)
 q=Q1(3,3)
-% Encontramos Qc! Revisar último tèrmino.
-Qc=Q+(inv(pcl))'*Kcomplex'*t'+(inv(pcl))'*Kcomplex'*q*Kcomplex*inv(pcl)+(inv(pcl))'*Kcomplex'*n*Kcomplex+t
-
+n=(Q12(3,1))
+% Encontramos Qc
+Qc=Q+(inv(pcl))'*Kcomplex'*t'+t*Kcomplex*inv(pcl)+(inv(pcl))'*Kcomplex'*q*Kcomplex*inv(pcl)+(inv(pcl))'*k'*n*k
+%La nueva Q nos debe dar una Kcomplex que nos permita encontrar los
+%valores propios deseados.
+P=diag([2,2]);
+k=10
+N=Q12(1:2,:)
+R=Q2
+while k>=1
+K(k,:)=inv(R+gamma'*P*gamma)*gamma'*P*phi;
+P=(phi-gamma*K(k,:))'*P*(phi-gamma*K(k,:))+Qc+K(k,:)'*R*K(k,:); %equivalente a la matriz P
+k=k-1;
+end
 
 
