@@ -19,7 +19,7 @@ Qx=zeros(n,n,10);
 Jj=zeros(n,10);
 ks=zeros(1,n,10)
 m=0;
-for alpha=0:0.1:1 % Ojo pues màs allà de 2 hay problemas de inestabilidad
+for alpha=0:0.01:0.1 % Ojo pues màs allà de 2 hay problemas de inestabilidad
 m=m+1;
 qq=Q+[0 -alpha*i;alpha*i 0];
 Qx(:,:,m)=qq;
@@ -40,4 +40,3 @@ pcl=phi-gamma*ks(1,:,m)
 pcls(:,:,m)=pcl
 Es(:,:,m)=eig(pcls(:,:,m))%Polos complejos no conjugados entonces d=2, debo estudiar el gacker para periodos màs largos que el periodo de muestreo
 end
-
